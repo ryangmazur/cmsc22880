@@ -320,22 +320,47 @@ public class TestQubit
         }
     }
 
-    public static int TestmeasureValue()
+    public static int TestmeasureValue(Qubit start, Qubit expected, String[] args )
     {
-        // TODO
-        return -1;
+        int numBlack = 0;
+        int iters = 1000;
+        // make sure the degrees input is there
+        if (args.length < 3)	
+		{
+			System.out.println("Too few arguments for "+
+				"TestgetValue: " +args.length);
+			System.out.println("Missing value input");
+			System.out.println("Test FAILED");
+			return 0;
+		}
+
+        // run measure many times and put the number of 1 in numBlack
+        for (int i = 0; i < iters; i++) {
+            // create a new qubit to measure with the same value is start
+            Qubit temp = new Qubit(start.getValue());
+
+            // measure temp and add the output to output
+            numBlack += temp.measureValue();
+        }
+
+        float perBlack = (1.0f * numBlack) / iters;
+
+        float error = 1.0f;
+        if ((perBlack > (expected.getValue() - error)) && (perBlack < (expected.getValue() + error))) {
+            System.out.println("Qubit measureValue("+start.getValue()+"): Success!");
+            return 1;
+        } else {
+            System.out.println("Qubit measureValue("+start.getValue()+"): FAIL!");
+            System.out.println("Expected: "+expected.getValue());
+            System.out.println("Actual: "+perBlack);
+            return 0;
+        }
     }
 
-    public static double TestmeasureValueMany()
+    public static int TesttoBraKet(Qubit start)
     {
-        // TODO
-        return -1.0;
-    }
-
-    public static int TesttoBraKet()
-    {
-        // TODO
-        return -1;
+        System.out.println(start.toBraKet());
+        return 1;
     }
 
 	public static void main(String[] args)
@@ -402,10 +427,10 @@ public class TestQubit
                 Testcnot(testQubit, expectedQubit, args);
                 break;
             case(10):
-                TestmeasureValue();
+                TestmeasureValue(testQubit, expectedQubit, args);
                 break;
             case(11):
-                TesttoBraKet();
+                TesttoBraKet(testQubit);
                 break;
             
 			default:
