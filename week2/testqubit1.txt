@@ -1,5 +1,5 @@
 java TestQubit 0 1 0 Black
-java TestQubit 0 1 0 White
+java TestQubit 0 0 0 White
 java TestQubit 0 0 1 0
 java TestQubit 1 0 1 0
 java TestQubit 0 1 1 1
@@ -23,11 +23,16 @@ java TestQubit .75 .25 4
 java TestQubit -.25 -.75 4
 java TestQubit -.75 -.25 4
 java TestQubit -.5 .5 5 1
-java TestQubit .5 -.5 5 1
+java TestQubit .5 -.5 5 -1
+java TestQubit 1 -1 5 -1
+java TestQubit 1 1 5 1
+java TestQubit -1 1 5 1
+java TestQubit -1 -1 5 -1
 java TestQubit -.75 -.75 6 -1
-java TestQubit -.75 .75 6 1
 java TestQubit .75 .75 6 1
-java TestQubit .75 -.75 6 -1
+java TestQubit 1 1 6 1
+java TestQubit -1 -1 6 -1
+java TestQubit 0 0 6 1
 java TestQubit 1 -.5 7
 java TestQubit 0 .5 7
 java TestQubit .5 0 7

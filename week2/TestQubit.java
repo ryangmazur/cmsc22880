@@ -186,7 +186,7 @@ public class TestQubit
 
         // perform the operation
         val = start.getPhase();
-        expectedVal = Integer.parseInt(args[1]);
+        expectedVal = Integer.parseInt(args[3]);
 
         // check the result and report
         if (val == expectedVal) {

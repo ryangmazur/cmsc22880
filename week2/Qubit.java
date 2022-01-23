@@ -79,7 +79,11 @@ public class Qubit{
     */
     public int getPhase()
     {
-        return Math.round(Math.signum(this.value));
+        int phase = Math.round(Math.signum(this.value));
+        if (this.value == 0) {
+            return phase + 1;
+        }
+        return phase;
     }
 
 	/* not
@@ -144,14 +148,20 @@ public class Qubit{
     */
     public String toBraKet()
     {
-        double alpha = Math.round(Math.sqrt(1 - this.value) * 100.0) / 100.0;
-        double beta = Math.round(Math.sqrt(this.value) * 100.0) / 100.0;
         if (this.value == 0) {
             return "|0>";
         } else if (this.value == 1) {
             return "|1>";
         }
-        return alpha + "|0> + " + beta + "|1>";
+        int phase = this.getPhase();
+        float absVal = Math.abs(this.value);
+        double alpha = Math.round(Math.sqrt(1 - absVal) * 100.0) / 100.0;
+        double beta = Math.round(Math.sqrt(absVal) * 100.0) / 100.0;
+        if (phase == 1) {
+            return alpha + "|0> + " + beta + "|1>";
+        } else {
+            return alpha + "|0> - " + beta + "|1>";
+        }
     }
 
 	/* These are methods we implement so that we can use Qubit with
