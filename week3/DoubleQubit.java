@@ -1,8 +1,8 @@
-public class DoubleQubit {
+public class DoubleQubit extends ParentQubit {
     
     // Constructor: initialize to |00>
     public DoubleQubit() {
-
+        super(2);
     }
 
     // this merges two sets of qubits and returns a new one that has
@@ -10,7 +10,7 @@ public class DoubleQubit {
     // merge a DoubleQubit to something of any size and create an NQubit.
     // This week, you merely return null.
     ParentQubit mergeQubits(ParentQubit pq) {
-
+        return null;
     }
 
     // this prints out the state in bra-ket notation, like last week
@@ -23,7 +23,7 @@ public class DoubleQubit {
     // I highly recommend writing a generic vector (with probability magnitudes a, b, c, d)
     // and calculating where they all end up using a not gate.
     public void applyNotGate() {
-
+        
     }
 
     // apply a not gate to the qubit in position qb, where numbering starts at 0
@@ -35,7 +35,7 @@ public class DoubleQubit {
     }
 
     // apply an H gate to every qubit
-    // as we went over in class, when you derive the amtrices for H gates,
+    // as we went over in class, when you derive the a matrix for H gates,
     // here is what you get:
     public void applyHGate() {
 

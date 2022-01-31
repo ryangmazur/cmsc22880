@@ -2,7 +2,7 @@ import javax.management.RuntimeErrorException;
 
 public abstract class ParentQubit {
     // make the data strcuture, it think it needs to be an array of floats
-    float[] values;
+    protected float[] values;
 
     // Constructor: initialize all bits to |0>
     public ParentQubit(int numqubits) {
@@ -11,7 +11,8 @@ public abstract class ParentQubit {
             throw new RuntimeException("Invalid number of qubits: " + numqubitsStr + "not greater than 0");
         }
         this.values = new float[(int) Math.pow(2.0, Double.valueOf(numqubits))];
-        for (int i = 0; i < this.values.length; i++) {
+        this.values[0] = 1.0f;
+        for (int i = 1; i < this.values.length; i++) {
             values[i] = 0.0f;
         }
     }
@@ -47,7 +48,7 @@ public abstract class ParentQubit {
 
         float sum = 0;
         for (int i = 0; i < v.length; i++) {
-            sum += Math.abs(v[i]);
+            sum += Math.pow(Math.abs(v[i]), 2);
         }
 
         if (sum != 1.0) {

@@ -1,8 +1,8 @@
-public class SingleQubit {
-    
+public class SingleQubit extends ParentQubit {
+
     // Constructor: initialize bit to |0>
     public SingleQubit() {
-
+        super(1);
     }
 
     // this merges two sets of qubits and returns a new one that has
@@ -12,34 +12,64 @@ public class SingleQubit {
     // return null. Otherwise, create a DoubleQubit object and fill it in
     // with the proper values.
     ParentQubit mergeQubits(ParentQubit pq) {
+        if (pq.getNumQubits() > 1) {
+            return null;
+        }
+        
+        DoubleQubit dq = new DoubleQubit();
 
+        int pos = 0;
+        float[] values = new float[4];
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                values[pos] = this.values[i] * pq.getValue(j);
+            }
+        }
+        return dq;
     }
 
     // this prints out the state in bra-ket notation, like last week
     public String toBraKet() {
-        
+        if (this.values[0] == 0) {
+            return "|0>";
+        } else if (this.values[0] == 1) {
+            return "|1>";
+        }
+        int phase = (int) Math.signum(this.values[0]);
+        float absVal = Math.abs(this.values[0]);
+        double alpha = Math.round(Math.sqrt(1 - absVal) * 100.0) / 100.0;
+        double beta = Math.round(Math.sqrt(absVal) * 100.0) / 100.0;
+        if (phase == 1) {
+            return alpha + "|0> + " + beta + "|1>";
+        } else {
+            return alpha + "|0> - " + beta + "|1>";
+        }
     }
 
     // apply a not gate to the qubit
     public void applyNotGate() {
-
+        this.values[0] = Math.signum(this.values[0]) * 1 - this.values[0];
     }
 
     // apply a not gate to the qubit in position qb, where numbering starts at 0
     // only do so if qb = 0 (since, in this case, we have only 1 qb)
     public void applyNotGate(int qb) {
-
+        if (qb == 0) {
+            this.values[0] = Math.signum(this.values[0]) * 1 - this.values[0];
+        }
     }
 
     // apply an H gate to the qubit
     public void applyHGate() {
-        
+        this.values[0] = ((1.0f - this.values[0]) * .5f + (0.0f + this.values[0]) * -.5f);
     }
 
     // apply an H gate to the qubit in position qb, where numbering starts at 0
     // only do so if qb = 0
     public void applyHGate(int qb) {
-
+        if (qb == 0) {
+            this.values[0] = ((1.0f - this.values[0]) * .5f + (0.0f + this.values[0]) * -.5f);
+        }
     }
 
     // do nothing
