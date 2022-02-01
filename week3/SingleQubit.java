@@ -48,27 +48,29 @@ public class SingleQubit extends ParentQubit {
 
     // apply a not gate to the qubit
     public void applyNotGate() {
-        this.values[0] = Math.signum(this.values[0]) * 1 - this.values[0];
+        float[][] gate = GenGates.genNotGate(1);
+        this.values = MatrixMath.matrixMult(gate, this.values);
     }
 
     // apply a not gate to the qubit in position qb, where numbering starts at 0
     // only do so if qb = 0 (since, in this case, we have only 1 qb)
     public void applyNotGate(int qb) {
         if (qb == 0) {
-            this.values[0] = Math.signum(this.values[0]) * 1 - this.values[0];
+            this.applyNotGate();
         }
     }
 
     // apply an H gate to the qubit
     public void applyHGate() {
-        this.values[0] = ((1.0f - this.values[0]) * .5f + (0.0f + this.values[0]) * -.5f);
+        float[][] gate = GenGates.genHGate();
+        this.values = MatrixMath.matrixMult(gate, this.values);
     }
 
     // apply an H gate to the qubit in position qb, where numbering starts at 0
     // only do so if qb = 0
     public void applyHGate(int qb) {
         if (qb == 0) {
-            this.values[0] = ((1.0f - this.values[0]) * .5f + (0.0f + this.values[0]) * -.5f);
+            this.applyHGate();
         }
     }
 

@@ -1,5 +1,3 @@
-import javax.management.RuntimeErrorException;
-
 public abstract class ParentQubit {
     // make the data strcuture, it think it needs to be an array of floats
     protected float[] values;
@@ -126,6 +124,26 @@ public abstract class ParentQubit {
     // returns the number of qubits this object represents
     public int getNumQubits() {
         return (int) Math.sqrt(this.values.length);
+    }
+
+    // citation for inspiration for this function: https://stackoverflow.com/questions/2406432/converting-an-int-to-a-binary-string-representation-in-java
+    protected String getBinary(int i, int len) {
+        String toReturn = "";
+        while (i > 0) {
+            int num = i % 2;
+            if (num == 0) {
+                toReturn = "0" + toReturn;
+            } else {
+                toReturn = "1" + toReturn;
+            }
+            i = i/2;
+        }
+        
+        while (toReturn.length() < len) {
+            toReturn = "0" + toReturn;
+        }
+
+        return toReturn;
     }
 
     // this merges two sets of qubits and returns a new one that has

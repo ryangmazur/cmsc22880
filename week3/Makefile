@@ -1,2 +1,2 @@
-TestQubit: ParentQubit.java SingleQubit.java DoubleQubit.java TestQubit.java
-	javac ParentQubit.java SingleQubit.java DoubleQubit.java TestQubit.java
+TestQubit: ParentQubit.java SingleQubit.java DoubleQubit.java TestQubit.java MatrixMath.java GenGates.java
+	javac ParentQubit.java SingleQubit.java DoubleQubit.java TestQubit.java MatrixMath.java GenGates.java
