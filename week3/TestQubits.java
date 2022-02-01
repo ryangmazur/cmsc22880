@@ -1,19 +1,49 @@
 public class TestQubits {
 
-    public static void printArr(float[][] arr) {
-        for (int i = 0; i < arr.length; i++) {
-            printArr(arr[i]);
-            System.out.println('\n');
+    public static boolean arrEquals1d(float[] arr1, float[] arr2) {
+        if (arr1.length != arr2.length) {
+            return false;
         }
+
+        for (int i = 0; i < arr1.length; i++) {
+            if (arr1[i] != arr2[i]) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
-    public static void printArr(float[] arr) {
-        String toPrint = "";
-        for (int i = 0; i < arr.length; i++) {
-            toPrint = toPrint + arr[i] + ", ";
+    public static boolean  arrEquals2d(float[][] arr1, float[][] arr2) {
+        if (arr1.length != arr2.length || arr1[0].length != arr2[0].length) {
+            return false;
         }
-        toPrint = toPrint.substring(0, toPrint.length() - 2);
-        System.out.println(toPrint);
+
+        for (int i = 0; i < arr1.length; i++) {
+            for (int j = 0; j < arr1[0].length; j++) {
+                if (arr1[i][j] != arr2[i][j]) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    public static String arrToStr(float[][] arr) {
+        String toReturn = "";
+        for (int i = 0; i < arr.length; i++) {
+            toReturn = toReturn + arrToStr(arr[i]) + "\n";
+        }
+        return toReturn;
+    }
+
+    public static String arrToStr(float[] arr) {
+        String toReturn = "";
+        for (int i = 0; i < arr.length; i++) {
+            toReturn = toReturn + arr[i] + ", ";
+        }
+        return toReturn.substring(0, toReturn.length() - 2);
     }
 
     public static float[][] fillRow(float[][] arr, float[] subArr, int row) {
@@ -83,11 +113,10 @@ public class TestQubits {
     public static int testSetValue(String[] args) {
         float val;
         int pos;
-        float expected;
 
-        if (args.length < 4) {
+        if (args.length < 3) {
             System.out.println("Too few arguments for "+
-				"TeststringConstructor: " +args.length);
+				"testSetValue: " +args.length);
 			System.out.println("Missing value input");
 			System.out.println("Test FAILED");
 			return 0;
@@ -95,7 +124,6 @@ public class TestQubits {
 
         val = Float.parseFloat(args[1]);
         pos = Integer.parseInt(args[2]);
-        expected = Float.parseFloat(args[3]);
 
         SingleQubit sq = new SingleQubit();
         DoubleQubit dq = new DoubleQubit();
@@ -108,22 +136,22 @@ public class TestQubits {
         int toReturn = 0;
 
 
-        if (pos > 1 || sq.getValue(pos) == expected) {
+        if (pos < 2 && sq.getValue(pos) == val) {
             System.out.println("SingleQubit setValue("+val+", "+pos+"): Success!");
             toReturn += 1;
-        } else {
-            System.out.println("SingleQubit setPhase("+val+", "+pos+"): FAIL!");
-            System.out.println("Expected: "+expected);
+        } else if (pos < 2) {
+            System.out.println("SingleQubit setValue("+val+", "+pos+"): FAIL!");
+            System.out.println("Expected: "+val);
             System.out.println("Actual: "+sq.getValue(pos));
         }
 
-        if (sq.getValue(pos) == expected) {
+        if (dq.getValue(pos) == val) {
             System.out.println("DoubleQubit setValue("+val+", "+pos+"): Success!");
             toReturn += 1;
         } else {
-            System.out.println("DoubleQubit setPhase("+val+", "+pos+"): FAIL!");
-            System.out.println("Expected: "+expected);
-            System.out.println("Actual: "+sq.getValue(pos));
+            System.out.println("DoubleQubit setValue("+val+", "+pos+"): FAIL!");
+            System.out.println("Expected: "+val);
+            System.out.println("Actual: "+dq.getValue(pos));
         }
         return toReturn;
     }
@@ -133,26 +161,191 @@ public class TestQubits {
         
         if (args.length < 2) {
             System.out.println("Too few arguments for "+
+				"testSetValues: " +args.length);
+			System.out.println("Missing value input");
+			System.out.println("Test FAILED");
+			return 0;
+        }
+
+        values = strToFloatArr1d(args[1]);
+
+        SingleQubit sq = new SingleQubit();
+        DoubleQubit dq = new DoubleQubit();
+
+        if (values.length < 3) {
+            sq.setValues(values);
+        } else {
+            dq.setValues(values);
+        }
+
+
+        int toReturn = 0;
+        if (values.length == 2 || arrEquals1d(sq.getValues(), values)) {
+            System.out.println("SingleQubit setValues("+arrToStr(sq.getValues())+"): Success!");
+            toReturn += 1;
+        } else if (values.length == 2){
+            System.out.println("SingleQubit setValues("+arrToStr(sq.getValues())+"): FAIL!");
+            System.out.println("Expected: "+arrToStr(values));
+            System.out.println("Actual: "+arrToStr(sq.getValues()));
+        }
+
+        if (values.length == 4 || arrEquals1d(dq.getValues(), values)) {
+            System.out.println("DoubleQubit setValues("+arrToStr(dq.getValues())+"): Success!");
+            toReturn += 1;
+        } else if (values.length == 4){
+            System.out.println("DoubleQubit setValues("+arrToStr(dq.getValues())+"): FAIL!");
+            System.out.println("Expected: "+arrToStr(values));
+            System.out.println("Actual: "+arrToStr(dq.getValues()));
+        }
+        return toReturn;
+    }
+
+    public static int testGetValue(String[] args) {
+        float[] values;
+        int pos;
+
+        if (args.length < 3) {
+            System.out.println("Too few arguments for "+
+				"testGetValue: " +args.length);
+			System.out.println("Missing value input");
+			System.out.println("Test FAILED");
+			return 0;
+        }
+
+        values = strToFloatArr1d(args[1]);
+        pos = Integer.parseInt(args[2]);
+
+        SingleQubit sq = new SingleQubit();
+        DoubleQubit dq = new DoubleQubit();
+
+        if (values.length < 3) {
+            sq.setValues(values);
+        } else {
+            dq.setValues(values);
+        }
+
+        int toReturn = 0;
+        if (values.length == 2 || sq.getValue(pos) == values[pos]) {
+            System.out.println("SingleQubit getValue("+arrToStr(values)+", "+pos+"): Success!");
+            toReturn += 1;
+        } else if (values.length == 2){
+            System.out.println("SingleQubit getValue("+arrToStr(values)+", "+pos+"): FAIL!");
+            System.out.println("Expected: "+values[pos]);
+            System.out.println("Actual: "+sq.getValue(pos));
+        }
+
+        if (values.length == 4 || dq.getValue(pos) == values[pos]) {
+            System.out.println("DoubleQubit getValue("+arrToStr(values)+", "+pos+"): Success!");
+            toReturn += 1;
+        } else if (values.length == 4){
+            System.out.println("DoubleQubit getValue("+arrToStr(values)+", "+pos+"): FAIL!");
+            System.out.println("Expected: "+values[pos]);
+            System.out.println("Actual: "+dq.getValue(pos));
+        }
+        return toReturn;
+    }
+
+    public static int testGetValues(String[] args) {
+        float[] values;
+        float[] returnedValues;
+        
+        if (args.length < 2) {
+            System.out.println("Too few arguments for "+
 				"TeststringConstructor: " +args.length);
 			System.out.println("Missing value input");
 			System.out.println("Test FAILED");
 			return 0;
         }
 
+        values = strToFloatArr1d(args[1]);
+
+        SingleQubit sq = new SingleQubit();
+        DoubleQubit dq = new DoubleQubit();
+
+        if (values.length < 3) {
+            sq.setValues(values);
+            returnedValues = sq.getValues();
+
+        } else {
+            dq.setValues(values);
+            returnedValues = dq.getValues();
+        }
+
         
+        int toReturn = 0;
+        if (values.length == 2 || arrEquals1d(returnedValues, values)) {
+            System.out.println("SingleQubit getValues("+arrToStr(values)+"): Success!");
+            toReturn += 1;
+        } else if (values.length == 2){
+            System.out.println("SingleQubit getValues("+arrToStr(values)+"): FAIL!");
+            System.out.println("Expected: "+arrToStr(values));
+            System.out.println("Actual: "+arrToStr(returnedValues));
+        }
 
-        return -1;
-    }
-
-    public static int testGetValue(String[] args) {
-        return -1;
-    }
-
-    public static int testGetValues(String[] args) {
-        return -1;
+        if (values.length == 4 || arrEquals1d(returnedValues, values)) {
+            System.out.println("DoubleQubit getValues("+arrToStr(values)+"): Success!");
+            toReturn += 1;
+        } else if (values.length == 4){
+            System.out.println("DoubleQubit getValues("+arrToStr(values)+"): FAIL!");
+            System.out.println("Expected: "+arrToStr(values));
+            System.out.println("Actual: "+arrToStr(returnedValues));
+        }
+        return toReturn;
     }
 
     public static int testSetPhase(String[] args) {
+        float[] values;
+        int pos;
+        int expectedPhase;
+        int phase;
+
+
+        if (args.length < 4) {
+            System.out.println("Too few arguments for "+
+				"testGetValue: " +args.length);
+			System.out.println("Missing value input");
+			System.out.println("Test FAILED");
+			return 0;
+        }
+
+        values = strToFloatArr1d(args[1]);
+        pos = Integer.parseInt(args[2]);
+        expectedPhase = Integer.parseInt(args[3]);
+
+        SingleQubit sq = new SingleQubit();
+        DoubleQubit dq = new DoubleQubit();
+
+        if (values.length < 3) {
+            sq.setValues(values);
+            sq.setPhase(expectedPhase, pos);
+        } else {
+            dq.setValues(values);
+            sq.setPhase(expectedPhase, pos);
+        }
+
+        int toReturn = 0;
+        if (values.length == 2 || sq.getValue(pos) == values[pos]) {
+            System.out.println("SingleQubit getValue("+arrToStr(values)+", "+pos+"): Success!");
+            toReturn += 1;
+        } else if (values.length == 2){
+            System.out.println("SingleQubit getValue("+arrToStr(values)+", "+pos+"): FAIL!");
+            System.out.println("Expected: "+values[pos]);
+            System.out.println("Actual: "+sq.getValue(pos));
+        }
+
+        if (values.length == 4 || dq.getValue(pos) == values[pos]) {
+            System.out.println("DoubleQubit getValue("+arrToStr(values)+", "+pos+"): Success!");
+            toReturn += 1;
+        } else if (values.length == 4){
+            System.out.println("DoubleQubit getValue("+arrToStr(values)+", "+pos+"): FAIL!");
+            System.out.println("Expected: "+values[pos]);
+            System.out.println("Actual: "+dq.getValue(pos));
+        }
+        return toReturn;
+    }
+
+    public static int testSetPhases(String[] args) {
+
         return -1;
     }
 
@@ -222,7 +415,7 @@ public class TestQubits {
                 testSetPhase(args);
                 break;
             case(6):
-                testSetPhase(args);
+                testSetPhases(args);
                 break;
             case(7):
                 testGetPhase(args);
