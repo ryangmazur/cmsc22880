@@ -39,7 +39,7 @@ public abstract class ParentQubit {
     // Combinations are always ordered in increasing order from 0 to (2^numqubits)-1.
     // Values are negative if the phase should be negative.
     public void setValues(float[] v) {
-        if (v.length != this.values.length) {
+        if (v.length > this.values.length) {
             String len = String.format("%d", this.values.length);
             throw new RuntimeException("Invalid length of input array: Array of length " + len + " required");
         }
