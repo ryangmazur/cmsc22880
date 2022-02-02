@@ -4,10 +4,11 @@ public abstract class ParentQubit {
 
     // Constructor: initialize all bits to |0>
     public ParentQubit(int numqubits) {
+        /*
         if (numqubits < 1) {
             String numqubitsStr = String.format("%d", numqubits);
             throw new RuntimeException("Invalid number of qubits: " + numqubitsStr + "not greater than 0");
-        }
+        */
         this.values = new float[(int) Math.pow(2.0, Double.valueOf(numqubits))];
         this.values[0] = 1.0f;
         for (int i = 1; i < this.values.length; i++) {
@@ -19,18 +20,19 @@ public abstract class ParentQubit {
     // Combinations are always ordered in increasing order from 0 to (2^numqubits)-1.
     // Values are negative if the phase should be negative.
     public void setValue(float v, int i) {
+        /*
         if (i > this.values.length || i < 0) {
             String pos = String.format("%d", i);
             String min = String.format("%d", 0);
             String max = String.format("%d", this.values.length - 1);
             throw new RuntimeException("Invalid position: Position " + pos + " not in [" + min + max + "]");
         }
-
+        
         if (v > 1.0 || v < -1.0) {
             String val = String.format("%.2f", v);
             throw new RuntimeException("Invalid value: " + val);
         }
-
+        */
         this.values[i] = Math.signum(v) * (float) Math.sqrt(Math.abs(v));
     }
 
@@ -39,6 +41,7 @@ public abstract class ParentQubit {
     // Combinations are always ordered in increasing order from 0 to (2^numqubits)-1.
     // Values are negative if the phase should be negative.
     public void setValues(float[] v) {
+        /*
         if (v.length > this.values.length) {
             String len = String.format("%d", this.values.length);
             throw new RuntimeException("Invalid length of input array: Array of length " + len + " required");
@@ -52,25 +55,28 @@ public abstract class ParentQubit {
         if (sum != 1.0) {
             throw new RuntimeException("Invalid values: Probabilities do not sum to 1");
         }
-
-        for (int i = 0; i < this.values.length; i++) {
+        */
+        for (int i = 0; i < v.length; i++) {
+            /*
             if (v[i] < -1.0 || v[i] > 1.0) {
                 String pos = String.format("%d", i);
                 String val = String.format("%.2f", v[i]);
                 throw new RuntimeException("Invalid value at position " + pos + ": " + val);
             }
-
+            */
             this.values[i] = Math.signum(v[i]) * (float) Math.sqrt(Math.abs(v[i]));
         }
     }
 
     public float getValue(int i) {
+        /*
         if (i > this.values.length || i < 0) {
             String pos = String.format("%d", i);
             String min = String.format("%d", 0);
             String max = String.format("%d", this.values.length - 1);
             throw new RuntimeException("Invalid position: Position " + pos + " not in [" + min + max + "]");
         }
+        */
         return (float) Math.pow(this.values[i], 2);
     }
 
@@ -87,23 +93,26 @@ public abstract class ParentQubit {
     * that is 0. For getPhase, always response 1 for a term that is 0.
     * These methods are similar to the value functions, but for phase. */    
     public void setPhase(int p, int i) {
+        /*
         if (i > this.values.length || i < 0) {
             String pos = String.format("%d", i);
             String min = String.format("%d", 0);
             String max = String.format("%d", this.values.length - 1);
             throw new RuntimeException("Invalid position: Position " + pos + " not in [" + min + max + "]");
         }
+        */
         if (this.values[i] != 0.0) {
             this.values[i] = Math.signum(p) * Math.abs(this.values[i]);
         }
     }
 
     public void setPhases(int[] p) {
+        /*
         if (p.length != this.values.length) {
             String len = String.format("%d", this.values.length);
             throw new RuntimeException("Invalid length of input array: Array of length " + len + " required");
         }
-
+        */
         for (int i = 0; i < this.values.length; i++) {
             if (this.values[i] != 0.0) {
                 this.values[i] = Math.signum(p[i]) * Math.abs(this.values[i]);
@@ -112,12 +121,14 @@ public abstract class ParentQubit {
     }
 
     public int getPhase(int i) {
+        /*
         if (i > this.values.length || i < 0) {
             String pos = String.format("%d", i);
             String min = String.format("%d", 0);
             String max = String.format("%d", this.values.length - 1);
             throw new RuntimeException("Invalid position: Position " + pos + " not in [" + min + max + "]");
         }
+        */
         return (int) Math.signum(this.values[i]);
     }
 

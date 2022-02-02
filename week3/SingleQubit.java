@@ -11,7 +11,7 @@ public class SingleQubit extends ParentQubit {
     // that the input only has one Qubit. If it has more than one qubit, then
     // return null. Otherwise, create a DoubleQubit object and fill it in
     // with the proper values.
-    ParentQubit mergeQubits(ParentQubit pq) {
+    DoubleQubit mergeQubits(ParentQubit pq) {
         if (pq.getNumQubits() > 1) {
             return null;
         }
