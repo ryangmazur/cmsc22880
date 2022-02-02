@@ -28,7 +28,7 @@ public class DoubleQubit extends ParentQubit {
                     //toReturn.concat(" + ");
                 }
             }
-            toReturn = toReturn + String.format("%.3f", Math.abs(this.values[i])) + "|" + getBinary(i, 2) + ">";
+            toReturn = toReturn + String.format("%.2f", Math.abs(this.values[i])) + "|" + getBinary(i, 2) + ">";
             //toReturn.concat(String.format("%.2f", vals[i]))
                     //.concat("|")
                     //.concat(getBinary(i, 2))

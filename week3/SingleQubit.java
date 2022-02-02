@@ -42,8 +42,8 @@ public class SingleQubit extends ParentQubit {
         } else if (this.values[0] == 0 && phase == -1) {
             return "- |1>";
         }
-        double alpha = Math.round(Math.abs(this.values[0]) * 1000.0) / 1000.0;
-        double beta = Math.round(Math.abs(this.values[1]) * 1000.0) / 1000.0;
+        double alpha = Math.round(Math.abs(this.values[0]) * 100.0) / 100.0;
+        double beta = Math.round(Math.abs(this.values[1]) * 100.0) / 100.0;
         if (phase == 1) {
             return alpha + "|0> + " + beta + "|1>";
         } else {
