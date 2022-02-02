@@ -17,8 +17,11 @@ public class SingleQubit extends ParentQubit {
         }
         
         DoubleQubit dq = new DoubleQubit();
+        float[] vals = new float[2];
+        vals[0] = (float) Math.pow(pq.getValue(0), 2);
+        vals[1] = (float) Math.pow(pq.getValue(1), 2);
 
-        dq.setValues(MatrixMath.tensorProd(this.values, pq.getValues()));
+        dq.setValues(MatrixMath.tensorProd(this.values, vals));
         return dq;
         /*
         int pos = 0;
