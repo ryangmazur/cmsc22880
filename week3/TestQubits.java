@@ -804,6 +804,24 @@ public class TestQubits {
         }
     }
 
+    public static void test(String[] args) {
+        float[] vals1;
+        float[] vals2;
+
+        vals1 = strToFloatArr1d(args[1]);
+        vals2 = strToFloatArr1d(args[2]);
+
+        SingleQubit sq1 = new SingleQubit();
+        SingleQubit sq2 = new SingleQubit();
+
+        sq1.setValues(vals1);
+        sq2.setValues(vals2);
+
+        DoubleQubit dq = sq1.mergeQubits(sq2);
+
+        System.out.println(arrToStr(dq.getValues()));
+    }
+
     public static void main(String[] args) {
         int testNumber;
 
@@ -860,6 +878,9 @@ public class TestQubits {
                 break;
             case(15):
                 testSingleQubit();
+                break;
+            case(16):
+                test(args);
                 break;
 
             default:
