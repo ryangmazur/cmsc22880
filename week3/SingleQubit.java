@@ -34,15 +34,16 @@ public class SingleQubit extends ParentQubit {
 
     // this prints out the state in bra-ket notation, like last week
     public String toBraKet() {
-        if (this.values[0] == 0) {
+        int phase = this.getPhase(1);
+        if (this.values[0] == 1) {
             return "|0>";
-        } else if (this.values[0] == 1) {
+        } else if (this.values[0] == 0 && phase == 1) {
             return "|1>";
+        } else if (this.values[0] == 0 && phase == -1) {
+            return "- |1>";
         }
-        int phase = (int) Math.signum(this.values[0]);
-        float absVal = Math.abs(this.values[0]);
-        double alpha = Math.round(Math.sqrt(1 - absVal) * 100.0) / 100.0;
-        double beta = Math.round(Math.sqrt(absVal) * 100.0) / 100.0;
+        double alpha = Math.round(Math.abs(this.values[0]) * 1000.0) / 1000.0;
+        double beta = Math.round(Math.abs(this.values[1]) * 1000.0) / 1000.0;
         if (phase == 1) {
             return alpha + "|0> + " + beta + "|1>";
         } else {

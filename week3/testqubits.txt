@@ -61,6 +61,7 @@ java TestQubits 10 0,1 0,1 0,0,0,1
 java TestQubits 11 1,0
 java TestQubits 11 0,1
 java TestQubits 11 .5,.5
+java TestQubits 11 .5,-.5
 java TestQubits 11 0,-1
 java TestQubits 11 1,0,0,0
 java TestQubits 11 0,0,0,1

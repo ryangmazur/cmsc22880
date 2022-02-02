@@ -18,19 +18,21 @@ public class DoubleQubit extends ParentQubit {
     public String toBraKet() {
         String toReturn = "";
 
-        float[] vals = this.getValues();
-        for (int i = 0; i < this.getNumQubits(); i++) {
+        for (int i = 0; i < this.values.length; i++) {
             if (i != 0 || this.getPhase(i) == -1) {
                 if (this.getPhase(i) == -1) {
-                    toReturn.concat(" - ");
+                    toReturn = toReturn + " - ";
+                    //toReturn.concat(" - ");
                 } else {
-                    toReturn.concat(" + ");
+                    toReturn = toReturn + " + ";
+                    //toReturn.concat(" + ");
                 }
             }
-            toReturn.concat(String.format("%.2f", vals[i]))
-                    .concat("|")
-                    .concat(getBinary(i, 2))
-                    .concat(">");
+            toReturn = toReturn + String.format("%.3f", Math.abs(this.values[i])) + "|" + getBinary(i, 2) + ">";
+            //toReturn.concat(String.format("%.2f", vals[i]))
+                    //.concat("|")
+                    //.concat(getBinary(i, 2))
+                    //.concat(">");
         }
         
         return toReturn;
