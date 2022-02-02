@@ -33,7 +33,7 @@ public class SingleQubit extends ParentQubit {
             newVals[i] = phase * (float) Math.sqrt(Math.abs(allVals[i]));
         }
 
-        dq.setValues(MatrixMath.tensorProd(this.values, vals));
+        dq.setValues(newVals);
         return dq;
         /*
         int pos = 0;
