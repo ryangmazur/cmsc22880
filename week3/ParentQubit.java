@@ -77,13 +77,13 @@ public abstract class ParentQubit {
             throw new RuntimeException("Invalid position: Position " + pos + " not in [" + min + max + "]");
         }
         */
-        return (float) Math.pow(this.values[i], 2);
+        return (float) Math.signum(this.values[i]) * (float) Math.pow(this.values[i], 2);
     }
 
     public float[] getValues() {
         float[] toReturn = new float[this.values.length];
         for (int i = 0; i < this.values.length; i ++) {
-            toReturn[i] = (float) Math.pow(this.values[i], 2);
+            toReturn[i] = (float) Math.signum(this.values[i]) * (float) Math.pow(this.values[i], 2);
         }
         return toReturn;
     }
@@ -103,6 +103,7 @@ public abstract class ParentQubit {
         */
         if (this.values[i] != 0.0) {
             this.values[i] = Math.signum(p) * Math.abs(this.values[i]);
+            
         }
     }
 
@@ -113,7 +114,7 @@ public abstract class ParentQubit {
             throw new RuntimeException("Invalid length of input array: Array of length " + len + " required");
         }
         */
-        for (int i = 0; i < this.values.length; i++) {
+        for (int i = 0; i < p.length; i++) {
             if (this.values[i] != 0.0) {
                 this.values[i] = Math.signum(p[i]) * Math.abs(this.values[i]);
             }
@@ -129,6 +130,9 @@ public abstract class ParentQubit {
             throw new RuntimeException("Invalid position: Position " + pos + " not in [" + min + max + "]");
         }
         */
+        if (this.values[i] == 0) {
+            return 1;
+        }
         return (int) Math.signum(this.values[i]);
     }
 

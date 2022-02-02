@@ -15,12 +15,13 @@ public class TestQubits {
     }
 
     public static boolean arrEquals1d(float[] arr1, float[] arr2) {
+        final float EPSILON = .0001f;
         if (arr1.length != arr2.length) {
             return false;
         }
 
         for (int i = 0; i < arr1.length; i++) {
-            if (arr1[i] != arr2[i]) {
+            if (Math.abs(arr1[i] - arr2[i]) > EPSILON) {
                 return false;
             }
         }
@@ -28,14 +29,15 @@ public class TestQubits {
         return true;
     }
 
-    public static boolean  arrEquals2d(float[][] arr1, float[][] arr2) {
+    public static boolean arrEquals2d(float[][] arr1, float[][] arr2) {
+        final float EPSILON = .0001f;
         if (arr1.length != arr2.length || arr1[0].length != arr2[0].length) {
             return false;
         }
 
         for (int i = 0; i < arr1.length; i++) {
             for (int j = 0; j < arr1[0].length; j++) {
-                if (arr1[i][j] != arr2[i][j]) {
+                if (Math.abs(arr1[i][j] - arr2[i][j]) > EPSILON) {
                     return false;
                 }
             }
@@ -111,19 +113,27 @@ public class TestQubits {
     }
 
     public static int[] strToIntArr(String str) {
-        int[] toReturn = new int[str.length()];
+        int numCommas = 0;
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == ',') {
+                numCommas++;
+            }
+        }
+        numCommas++;
+        int[] toReturn = new int[numCommas];
 
         String subStr = "";
         int pos = 0;
         for (int i = 0; i < str.length(); i++) {
             if (str.charAt(i) == ',') {
                 toReturn[pos] = Integer.parseInt(subStr);
+                subStr = "";
                 pos++;
             } else {
                 subStr = subStr + str.charAt(i);
             }
         }
-
+        toReturn[pos] = Integer.parseInt(subStr);
         return toReturn;
     }
 
@@ -148,7 +158,7 @@ public class TestQubits {
                 subStr = subStr + str.charAt(i);
             }
         }
-
+        toReturn[pos] = Float.parseFloat(subStr);
         return toReturn;
     }
 
@@ -248,6 +258,7 @@ public class TestQubits {
     }
 
     public static int testGetValue(String[] args) {
+        final float EPSILON = .0001f;
         float[] values;
         int pos;
 
@@ -272,7 +283,7 @@ public class TestQubits {
         }
 
         int toReturn = 0;
-        if (values.length == 2 && sq.getValue(pos) == values[pos]) {
+        if (values.length == 2 && Math.abs(sq.getValue(pos) - values[pos]) < EPSILON) {
             System.out.println("SingleQubit getValue("+arrToStr(values)+", "+pos+"): Success!");
             toReturn += 1;
         } else if (values.length == 2){
@@ -298,7 +309,7 @@ public class TestQubits {
         
         if (args.length < 2) {
             System.out.println("Too few arguments for "+
-				"TeststringConstructor: " +args.length);
+				"testGetValues: " +args.length);
 			System.out.println("Missing value input");
 			System.out.println("Test FAILED");
 			return 0;
@@ -349,7 +360,7 @@ public class TestQubits {
 
         if (args.length < 4) {
             System.out.println("Too few arguments for "+
-				"testGetValue: " +args.length);
+				"testSetPhase: " +args.length);
 			System.out.println("Missing value input");
 			System.out.println("Test FAILED");
 			return 0;
@@ -423,7 +434,7 @@ public class TestQubits {
             dq.setValues(values);
             dq.setPhases(phases);
             for (int i = 0; i < values.length; i++) {
-                returnPhases[i] = sq.getPhase(i);
+                returnPhases[i] = dq.getPhase(i);
             }
         }
 
@@ -463,6 +474,9 @@ public class TestQubits {
         values = strToFloatArr1d(args[1]);
         pos = Integer.parseInt(args[2]);
         int expectedPhase = (int) Math.signum(values[pos]);
+        if (values[pos] == 0) {
+            expectedPhase = 1;
+        }
 
         SingleQubit sq = new SingleQubit();
         DoubleQubit dq = new DoubleQubit();
@@ -483,7 +497,7 @@ public class TestQubits {
             System.out.println("Actual: "+sq.getPhase(pos));
         }
 
-        if (values.length == 4 && dq.getPhase(pos) == values[pos]) {
+        if (values.length == 4 && dq.getPhase(pos) == expectedPhase) {
             System.out.println("DoubleQubit getPhase("+arrToStr(values)+", "+pos+"): Success!");
             toReturn += 1;
         } else if (values.length == 4){
@@ -553,13 +567,16 @@ public class TestQubits {
         SingleQubit sq1 = new SingleQubit();
         SingleQubit sq2 = new SingleQubit();
 
+        sq1.setValues(vals1);
+        sq2.setValues(vals2);
+
         DoubleQubit dq = sq1.mergeQubits(sq2);
 
         if (arrEquals1d(dq.getValues(), expected)) {
             System.out.println("SingleQubit mergeQubits: Success!");
             return 1;
         } else {
-            System.out.println("DoubleQubit Constructor: FAIL!");
+            System.out.println("SingleQubit mergeQubits: FAIL!");
             System.out.println("Expected: "+arrToStr(expected));
             System.out.println("Actual: "+arrToStr(dq.getValues()));
             return 0;

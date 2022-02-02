@@ -48,7 +48,7 @@ public class MatrixMath {
         for (int i = 0; i < shape1[0]; i++) {
             float val = 0;
             for (int j = 0; j < shape1[0]; j++) {
-                val = matr1[i][j] * matr2[j];
+                val = matr1[i][j] * matr2[j] + val;
             }
             toReturn[i] = val;
         }
@@ -127,7 +127,7 @@ public class MatrixMath {
                 float[][] subMatr = scalarMult(matr1[i][j], matr2);
                 for (int k = 0; k < shape2[0]; k++) {
                     for (int l = 0; l < shape2[1]; l++) {
-                        toReturn[shape2[0] * i + k][shape2[1] * j + l] = subMatr[k][j];
+                        toReturn[shape2[0] * i + k][shape2[1] * j + l] = subMatr[k][l];
                     }
                 }
             }

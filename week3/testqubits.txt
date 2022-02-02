@@ -30,11 +30,11 @@ java TestQubits 4 0,0,0,0
 java TestQubits 4 1,1,1,1
 java TestQubits 4 -1,0,-1,0
 java TestQubits 4 .25,-.75,.25,-.75
-java TestQubits 5 0,0 1
-java TestQubits 5 1,1 0 1
+java TestQubits 5 0,0 1 1
+java TestQubits 5 1,1 0 -1
 java TestQubits 5 .5,.5 1 -1
 java TestQubits 5 0,-1 1 1
-java TestQubits 5 0,0,0,0 1 -1
+java TestQubits 5 0,0,0,0 1 1
 java TestQubits 5 1,1,1,1 2 1
 java TestQubits 5 -1,0,-1,0 2 1
 java TestQubits 5 .25,-.75,.25,-.75 3 -1
@@ -42,7 +42,7 @@ java TestQubits 6 0,0 1,1
 java TestQubits 6 1,1 1,-1
 java TestQubits 6 .5,.5 1,-1
 java TestQubits 6 0,-1 1,1
-java TestQubits 6 0,0,0,0 1,-1,1,-1
+java TestQubits 6 0,1,0,1 1,-1,1,-1
 java TestQubits 6 1,1,1,1 1,1,-1,1
 java TestQubits 6 -1,0,-1,0 1,1,1,1
 java TestQubits 6 .25,-.75,.25,-.75 1,-1,1,1
@@ -58,7 +58,6 @@ java TestQubits 8
 java TestQubits 9
 java TestQubits 10 1,0 1,0 1,0,0,0
 java TestQubits 10 0,1 0,1 0,0,0,1
-java TestQubits 10 .5,.5 .5,.5 .25,.25,.25,.25
 java TestQubits 11 1,0
 java TestQubits 11 0,1
 java TestQubits 11 .5,.5
@@ -81,13 +80,12 @@ java TestQubits 12 1,0 0,1 0
 java TestQubits 12 .25,.75 .75,.25 0
 java TestQubits 12 0,1,0,0 0,0,1,0
 java TestQubits 12 1,0,0,0 0,0,0,1
-java TestQubits 12 0,1,0,0 1,0,0,0 0
+java TestQubits 12 0,1,0,0 0,0,0,1 0
 java TestQubits 12 1,0,0,0 0,1,0,0 1
-java TestQubits 13 1,0 .5,,5
+java TestQubits 13 1,0 .5,.5
 java TestQubits 13 0,1 .5,-.5
 java TestQubits 13 1,0,0,0 .25,.25,.25,.25
 java TestQubits 13 0,0,0,1 .25,-.25,-.25,.25
-java TestQubits 13 1,0,0,0 .5,.5,0,0
-java TestQubits 13 1,0,0,0 .5,0,.5,0
+java TestQubits 13 1,0,0,0 .25,.25,.25,.25
 java TestQubits 14 0,1,0,0 0,0,1,0
 java TestQubits 15

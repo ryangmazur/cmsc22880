@@ -18,6 +18,9 @@ public class SingleQubit extends ParentQubit {
         
         DoubleQubit dq = new DoubleQubit();
 
+        dq.setValues(MatrixMath.tensorProd(this.values, pq.getValues()));
+        return dq;
+        /*
         int pos = 0;
         float[] values = new float[4];
         for (int i = 0; i < 2; i++) {
@@ -26,6 +29,7 @@ public class SingleQubit extends ParentQubit {
             }
         }
         return dq;
+        */
     }
 
     // this prints out the state in bra-ket notation, like last week

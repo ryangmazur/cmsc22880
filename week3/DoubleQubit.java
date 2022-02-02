@@ -64,7 +64,6 @@ public class DoubleQubit extends ParentQubit {
                 gate = MatrixMath.tensorProd(gate, GenGates.genIdentityGate(1));
             }
         }
-
         this.values = MatrixMath.matrixMult(gate, this.values);
     }
 
