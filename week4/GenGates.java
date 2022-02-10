@@ -56,7 +56,7 @@ public class GenGates {
     // https://www.techiedelight.com/swap-two-bits-given-position-integer/
     // citation for swapping bits in an integer
     public static float[][] genSwapGate(int qb1, int qb2, int numqubits) {
-        int len = Math.pow(2, numqubits);
+        int len = (int) Math.pow(2, numqubits);
         float[][] toReturn = new float[len][len];
 
         float[] order = new float[len];
@@ -94,7 +94,7 @@ public class GenGates {
     }
 
     public static float[][] genCNot(int qb, int numqubits) {
-        int len = Math.pow(2, numqubits);
+        int len = (int) Math.pow(2, numqubits);
         float[][] toReturn = new float[len][len];
 
         for (int i = 0; i < len; i++) {

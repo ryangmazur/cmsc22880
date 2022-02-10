@@ -1,8 +1,8 @@
-public class QCricuit {
+public class QCircuit {
     
     // no return value is necessary because you modify the input dq.
     public static void sameEntangle(DoubleQubit dq) {
-        float[][] gate = MatrixMath.matrixMult(GenGates.genCNot, MatrixMath.tensorProd(GenGates.genHGate(), GenGates.genIdentityGate(1)));
+        float[][] gate = MatrixMath.matrixMult(GenGates.genCNot(), MatrixMath.tensorProd(GenGates.genHGate(), GenGates.genIdentityGate(1)));
         dq.setAmpValues(MatrixMath.matrixMult(gate, dq.getAmpValues()));
     }
 

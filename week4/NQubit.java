@@ -1,4 +1,4 @@
-public class NQubit {
+public class NQubit extends ParentQubit {
     
     // Constructor: init all qubits to zero
     public NQubit(int numqubits) {
@@ -40,7 +40,7 @@ public class NQubit {
     }
 
     // apply a not gate to the qubit in position qb, where numbering starts at 0
-    public void applyNotGate(int qp) {
+    public void applyNotGate(int qb) {
         float[][] gate;
         if (qb == 0) {
             gate = GenGates.genNotGate(1);
@@ -91,7 +91,7 @@ public class NQubit {
 
     // apply a swap gate between qubit1 and qubit2, where numbering starts at 0
     public void applySwapGate(int qb1, int qb2) {
-        float[][] gate = genSwapGate(qb1, qb2, this.getNumQubits());
+        float[][] gate = GenGates.genSwapGate(qb1, qb2, this.getNumQubits());
         this.values = MatrixMath.matrixMult(gate, this.values);
     }
 }

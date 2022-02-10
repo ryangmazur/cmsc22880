@@ -9,15 +9,15 @@ public class QOracle {
     private float[][] createBernVaz(int code) {
         float[][] toReturn = new float[16][16];
 
-        int first = 1;
+        boolean first = true;
 
         for (int i = 0; i < 3; i++) {
             if ((code & (1 << i)) == 1) {
                 if (first) {
-                    toReturn = GenGates.genCNot(i + 1);
-                    first = 0;
+                    toReturn = GenGates.genCNot(i + 1, 4);
+                    first = false;
                 } else {
-                    toReturn = MatrixMath.matrixMult(toReturn, GenGates.genCNot(i + 1));
+                    toReturn = MatrixMath.matrixMult(toReturn, GenGates.genCNot(i + 1, 4));
                 }
             }
         }
@@ -39,7 +39,7 @@ public class QOracle {
     public void probeBernVaz(NQubit nq) {
         float[][] hgates = MatrixMath.tensorProd(MatrixMath.tensorProd(GenGates.genHGate(), GenGates.genHGate()), MatrixMath.tensorProd(GenGates.genHGate(), GenGates.genHGate()));
 
-        nq.setAmpValues(MatrixMath.matrixMult(MatrixMath.matrixMult(hgates, this.matr), MatrixMath.matrixMult(hgates, np.getAmpValues())));
+        nq.setAmpValues(MatrixMath.matrixMult(MatrixMath.matrixMult(hgates, this.matr), MatrixMath.matrixMult(hgates, nq.getAmpValues())));
     }
 
     // receives a set of 3-bit codes (number from 0-7). Based on that
@@ -49,10 +49,10 @@ public class QOracle {
     // code modifies that starting matrix. Once you have figured it out on paper,
     // then you can work on how to implement that in code.
     public void setArchimedes(int[] codes) {
-        this.matr = createBernVaz(code[0]);
+        this.matr = createBernVaz(codes[0]);
 
         for (int i = 1; i < codes.length; i++) {
-            this.matr = MatrixMath.matrixMult(this.matr, createBernVaz(code[i]));
+            this.matr = MatrixMath.matrixMult(this.matr, createBernVaz(codes[i]));
         }
     }
 
@@ -62,6 +62,6 @@ public class QOracle {
     public void probeArchimedes(NQubit nq) {
         float[][] hgates = MatrixMath.tensorProd(MatrixMath.tensorProd(GenGates.genHGate(), GenGates.genHGate()), MatrixMath.tensorProd(GenGates.genHGate(), GenGates.genHGate()));
 
-        nq.setAmpValues(MatrixMath.matrixMult(MatrixMath.matrixMult(hgates, this.matr), MatrixMath.matrixMult(hgates, np.getAmpValues())));
+        nq.setAmpValues(MatrixMath.matrixMult(MatrixMath.matrixMult(hgates, this.matr), MatrixMath.matrixMult(hgates, nq.getAmpValues())));
     }
 }

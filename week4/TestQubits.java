@@ -1,167 +1,5 @@
 public class TestQubits {
 
-    public static boolean arrEquals1d(int[] arr1, int[] arr2) {
-        if (arr1.length != arr2.length) {
-            return false;
-        }
-
-        for (int i = 0; i < arr1.length; i++) {
-            if (arr1[i] != arr2[i]) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    public static boolean arrEquals1d(float[] arr1, float[] arr2) {
-        final float EPSILON = .0001f;
-        if (arr1.length != arr2.length) {
-            return false;
-        }
-
-        for (int i = 0; i < arr1.length; i++) {
-            if (Math.abs(arr1[i] - arr2[i]) > EPSILON) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    public static boolean arrEquals2d(float[][] arr1, float[][] arr2) {
-        final float EPSILON = .0001f;
-        if (arr1.length != arr2.length || arr1[0].length != arr2[0].length) {
-            return false;
-        }
-
-        for (int i = 0; i < arr1.length; i++) {
-            for (int j = 0; j < arr1[0].length; j++) {
-                if (Math.abs(arr1[i][j] - arr2[i][j]) > EPSILON) {
-                    return false;
-                }
-            }
-        }
-
-        return true;
-    }
-
-    public static String arrToStr(float[][] arr) {
-        String toReturn = "";
-        for (int i = 0; i < arr.length; i++) {
-            toReturn = toReturn + arrToStr(arr[i]) + "\n";
-        }
-        return toReturn;
-    }
-
-    public static String arrToStr(float[] arr) {
-        String toReturn = "";
-        for (int i = 0; i < arr.length; i++) {
-            toReturn = toReturn + arr[i] + ", ";
-        }
-        return toReturn.substring(0, toReturn.length() - 2);
-    }
-
-    public static String arrToStr(int[] arr) {
-        String toReturn = "";
-        for (int i = 0; i < arr.length; i++) {
-            toReturn = toReturn + arr[i] + ", ";
-        }
-        return toReturn.substring(0, toReturn.length() - 2);
-    }
-
-    public static float[][] fillRow(float[][] arr, float[] subArr, int row) {
-        for (int i = 0; i < subArr.length; i++) {
-            arr[row][i] = subArr[i];
-        }
-        return arr;
-    }
-    
-    public static float[][] strToFloatArr2d(String str) {
-        int rows = 0;
-        int cols = 0;
-        int numCommas = 0;
-
-        for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) == ',') {
-                numCommas++;
-            } else if (str.charAt(i) == ';') {
-                rows++;
-                if (cols == 0) {
-                    cols = numCommas + 1;
-                }
-            }
-        }
-
-        rows++;
-        float[][] toReturn = new float[rows][cols];
-        String subStr = "";
-        int i = 0;
-        int currRow = 0;
-        while(i < str.length()) {
-            if (str.charAt(i) == ';') {
-                toReturn = fillRow(toReturn, strToFloatArr1d(subStr), currRow);
-                subStr = "";
-                currRow++;
-            } else {
-                subStr = subStr + str.charAt(i);
-            }
-            i++;
-        }
-
-        return toReturn;
-    }
-
-    public static int[] strToIntArr(String str) {
-        int numCommas = 0;
-        for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) == ',') {
-                numCommas++;
-            }
-        }
-        numCommas++;
-        int[] toReturn = new int[numCommas];
-
-        String subStr = "";
-        int pos = 0;
-        for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) == ',') {
-                toReturn[pos] = Integer.parseInt(subStr);
-                subStr = "";
-                pos++;
-            } else {
-                subStr = subStr + str.charAt(i);
-            }
-        }
-        toReturn[pos] = Integer.parseInt(subStr);
-        return toReturn;
-    }
-
-    public static float[] strToFloatArr1d(String str) {
-        int numCommas = 0;
-        for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) == ',') {
-                numCommas++;
-            }
-        }
-        numCommas++;
-        float[] toReturn = new float[numCommas];
-
-        String subStr = "";
-        int pos = 0;
-        for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) == ',') {
-                toReturn[pos] = Float.parseFloat(subStr);
-                subStr = "";
-                pos++;
-            } else {
-                subStr = subStr + str.charAt(i);
-            }
-        }
-        toReturn[pos] = Float.parseFloat(subStr);
-        return toReturn;
-    }
-
     public static int testParentQubit() {
         
         return -1;
@@ -224,7 +62,7 @@ public class TestQubits {
 			return 0;
         }
 
-        values = strToFloatArr1d(args[1]);
+        values = TestUtils.strToFloatArr1d(args[1]);
 
         SingleQubit sq = new SingleQubit();
         DoubleQubit dq = new DoubleQubit();
@@ -237,22 +75,22 @@ public class TestQubits {
 
 
         int toReturn = 0;
-        if (values.length == 2 && arrEquals1d(sq.getValues(), values)) {
-            System.out.println("SingleQubit setValues("+arrToStr(sq.getValues())+"): Success!");
+        if (values.length == 2 && TestUtils.arrEquals1d(sq.getValues(), values)) {
+            System.out.println("SingleQubit setValues("+TestUtils.arrToStr(sq.getValues())+"): Success!");
             toReturn += 1;
         } else if (values.length == 2){
-            System.out.println("SingleQubit setValues("+arrToStr(values)+"): FAIL!");
-            System.out.println("Expected: "+arrToStr(values));
-            System.out.println("Actual: "+arrToStr(sq.getValues()));
+            System.out.println("SingleQubit setValues("+TestUtils.arrToStr(values)+"): FAIL!");
+            System.out.println("Expected: "+TestUtils.arrToStr(values));
+            System.out.println("Actual: "+TestUtils.arrToStr(sq.getValues()));
         }
 
-        if (values.length == 4 && arrEquals1d(dq.getValues(), values)) {
-            System.out.println("DoubleQubit setValues("+arrToStr(dq.getValues())+"): Success!");
+        if (values.length == 4 && TestUtils.arrEquals1d(dq.getValues(), values)) {
+            System.out.println("DoubleQubit setValues("+TestUtils.arrToStr(dq.getValues())+"): Success!");
             toReturn += 1;
         } else if (values.length == 4){
-            System.out.println("DoubleQubit setValues("+arrToStr(values)+"): FAIL!");
-            System.out.println("Expected: "+arrToStr(values));
-            System.out.println("Actual: "+arrToStr(dq.getValues()));
+            System.out.println("DoubleQubit setValues("+TestUtils.arrToStr(values)+"): FAIL!");
+            System.out.println("Expected: "+TestUtils.arrToStr(values));
+            System.out.println("Actual: "+TestUtils.arrToStr(dq.getValues()));
         }
         return toReturn;
     }
@@ -270,7 +108,7 @@ public class TestQubits {
 			return 0;
         }
 
-        values = strToFloatArr1d(args[1]);
+        values = TestUtils.strToFloatArr1d(args[1]);
         pos = Integer.parseInt(args[2]);
 
         SingleQubit sq = new SingleQubit();
@@ -284,19 +122,19 @@ public class TestQubits {
 
         int toReturn = 0;
         if (values.length == 2 && Math.abs(sq.getValue(pos) - values[pos]) < EPSILON) {
-            System.out.println("SingleQubit getValue("+arrToStr(values)+", "+pos+"): Success!");
+            System.out.println("SingleQubit getValue("+TestUtils.arrToStr(values)+", "+pos+"): Success!");
             toReturn += 1;
         } else if (values.length == 2){
-            System.out.println("SingleQubit getValue("+arrToStr(values)+", "+pos+"): FAIL!");
+            System.out.println("SingleQubit getValue("+TestUtils.arrToStr(values)+", "+pos+"): FAIL!");
             System.out.println("Expected: "+values[pos]);
             System.out.println("Actual: "+sq.getValue(pos));
         }
 
         if (values.length == 4 && dq.getValue(pos) == values[pos]) {
-            System.out.println("DoubleQubit getValue("+arrToStr(values)+", "+pos+"): Success!");
+            System.out.println("DoubleQubit getValue("+TestUtils.arrToStr(values)+", "+pos+"): Success!");
             toReturn += 1;
         } else if (values.length == 4){
-            System.out.println("DoubleQubit getValue("+arrToStr(values)+", "+pos+"): FAIL!");
+            System.out.println("DoubleQubit getValue("+TestUtils.arrToStr(values)+", "+pos+"): FAIL!");
             System.out.println("Expected: "+values[pos]);
             System.out.println("Actual: "+dq.getValue(pos));
         }
@@ -315,7 +153,7 @@ public class TestQubits {
 			return 0;
         }
 
-        values = strToFloatArr1d(args[1]);
+        values = TestUtils.strToFloatArr1d(args[1]);
 
         SingleQubit sq = new SingleQubit();
         DoubleQubit dq = new DoubleQubit();
@@ -331,22 +169,22 @@ public class TestQubits {
 
         
         int toReturn = 0;
-        if (values.length == 2 && arrEquals1d(returnedValues, values)) {
-            System.out.println("SingleQubit getValues("+arrToStr(values)+"): Success!");
+        if (values.length == 2 && TestUtils.arrEquals1d(returnedValues, values)) {
+            System.out.println("SingleQubit getValues("+TestUtils.arrToStr(values)+"): Success!");
             toReturn += 1;
         } else if (values.length == 2){
-            System.out.println("SingleQubit getValues("+arrToStr(values)+"): FAIL!");
-            System.out.println("Expected: "+arrToStr(values));
-            System.out.println("Actual: "+arrToStr(returnedValues));
+            System.out.println("SingleQubit getValues("+TestUtils.arrToStr(values)+"): FAIL!");
+            System.out.println("Expected: "+TestUtils.arrToStr(values));
+            System.out.println("Actual: "+TestUtils.arrToStr(returnedValues));
         }
 
-        if (values.length == 4 && arrEquals1d(returnedValues, values)) {
-            System.out.println("DoubleQubit getValues("+arrToStr(values)+"): Success!");
+        if (values.length == 4 && TestUtils.arrEquals1d(returnedValues, values)) {
+            System.out.println("DoubleQubit getValues("+TestUtils.arrToStr(values)+"): Success!");
             toReturn += 1;
         } else if (values.length == 4){
-            System.out.println("DoubleQubit getValues("+arrToStr(values)+"): FAIL!");
-            System.out.println("Expected: "+arrToStr(values));
-            System.out.println("Actual: "+arrToStr(returnedValues));
+            System.out.println("DoubleQubit getValues("+TestUtils.arrToStr(values)+"): FAIL!");
+            System.out.println("Expected: "+TestUtils.arrToStr(values));
+            System.out.println("Actual: "+TestUtils.arrToStr(returnedValues));
         }
         return toReturn;
     }
@@ -366,7 +204,7 @@ public class TestQubits {
 			return 0;
         }
 
-        values = strToFloatArr1d(args[1]);
+        values = TestUtils.strToFloatArr1d(args[1]);
         pos = Integer.parseInt(args[2]);
         expectedPhase = Integer.parseInt(args[3]);
 
@@ -416,8 +254,8 @@ public class TestQubits {
 			return 0;
         }
 
-        values = strToFloatArr1d(args[1]);
-        phases = strToIntArr(args[2]);
+        values = TestUtils.strToFloatArr1d(args[1]);
+        phases = TestUtils.strToIntArr(args[2]);
 
         SingleQubit sq = new SingleQubit();
         DoubleQubit dq = new DoubleQubit();
@@ -439,22 +277,22 @@ public class TestQubits {
         }
 
         int toReturn = 0;
-        if (values.length == 2 && arrEquals1d(returnPhases, phases)) {
-            System.out.println("SingleQubit setPhases("+arrToStr(values)+", "+arrToStr(phases)+"): Success!");
+        if (values.length == 2 && TestUtils.arrEquals1d(returnPhases, phases)) {
+            System.out.println("SingleQubit setPhases("+TestUtils.arrToStr(values)+", "+TestUtils.arrToStr(phases)+"): Success!");
             toReturn += 1;
         } else if (values.length == 2){
-            System.out.println("SingleQubit setPhases("+arrToStr(values)+", "+arrToStr(phases)+"): FAIL!");
-            System.out.println("Expected: "+arrToStr(phases));
-            System.out.println("Actual: "+arrToStr(returnPhases));
+            System.out.println("SingleQubit setPhases("+TestUtils.arrToStr(values)+", "+TestUtils.arrToStr(phases)+"): FAIL!");
+            System.out.println("Expected: "+TestUtils.arrToStr(phases));
+            System.out.println("Actual: "+TestUtils.arrToStr(returnPhases));
         }
 
-        if (values.length == 4 && arrEquals1d(returnPhases, phases)) {
-            System.out.println("DoubleQubit setValues("+arrToStr(values)+", "+arrToStr(phases)+"): Success!");
+        if (values.length == 4 && TestUtils.arrEquals1d(returnPhases, phases)) {
+            System.out.println("DoubleQubit setValues("+TestUtils.arrToStr(values)+", "+TestUtils.arrToStr(phases)+"): Success!");
             toReturn += 1;
         } else if (values.length == 4){
-            System.out.println("DoubleQubit setValues("+arrToStr(values)+", "+arrToStr(phases)+"): FAIL!");
-            System.out.println("Expected: "+arrToStr(phases));
-            System.out.println("Actual: "+arrToStr(returnPhases));
+            System.out.println("DoubleQubit setValues("+TestUtils.arrToStr(values)+", "+TestUtils.arrToStr(phases)+"): FAIL!");
+            System.out.println("Expected: "+TestUtils.arrToStr(phases));
+            System.out.println("Actual: "+TestUtils.arrToStr(returnPhases));
         }
         return toReturn;
     }
@@ -471,7 +309,7 @@ public class TestQubits {
 			return 0;
         }
 
-        values = strToFloatArr1d(args[1]);
+        values = TestUtils.strToFloatArr1d(args[1]);
         pos = Integer.parseInt(args[2]);
         int expectedPhase = (int) Math.signum(values[pos]);
         if (values[pos] == 0) {
@@ -489,19 +327,19 @@ public class TestQubits {
 
         int toReturn = 0;
         if (values.length == 2 && sq.getPhase(pos) == expectedPhase) {
-            System.out.println("SingleQubit getPhase("+arrToStr(values)+", "+pos+"): Success!");
+            System.out.println("SingleQubit getPhase("+TestUtils.arrToStr(values)+", "+pos+"): Success!");
             toReturn += 1;
         } else if (values.length == 2){
-            System.out.println("SingleQubit getPhase("+arrToStr(values)+", "+pos+"): FAIL!");
+            System.out.println("SingleQubit getPhase("+TestUtils.arrToStr(values)+", "+pos+"): FAIL!");
             System.out.println("Expected: "+expectedPhase);
             System.out.println("Actual: "+sq.getPhase(pos));
         }
 
         if (values.length == 4 && dq.getPhase(pos) == expectedPhase) {
-            System.out.println("DoubleQubit getPhase("+arrToStr(values)+", "+pos+"): Success!");
+            System.out.println("DoubleQubit getPhase("+TestUtils.arrToStr(values)+", "+pos+"): Success!");
             toReturn += 1;
         } else if (values.length == 4){
-            System.out.println("DoubleQubit getPhase("+arrToStr(values)+", "+pos+"): FAIL!");
+            System.out.println("DoubleQubit getPhase("+TestUtils.arrToStr(values)+", "+pos+"): FAIL!");
             System.out.println("Expected: "+expectedPhase);
             System.out.println("Actual: "+dq.getPhase(pos));
         }
@@ -538,7 +376,7 @@ public class TestQubits {
 
         float[] check = new float[]{1f, 0f, 0f, 0f};
 
-        if (dq.getNumQubits() == 2 && arrEquals1d(dq.getValues(), check)) {
+        if (dq.getNumQubits() == 2 && TestUtils.arrEquals1d(dq.getValues(), check)) {
             System.out.println("DoubleQubit Consutrctor: Success!");
             return 1;
         } else {
@@ -560,9 +398,9 @@ public class TestQubits {
 			return 0;
         }
 
-        vals1 = strToFloatArr1d(args[1]);
-        vals2 = strToFloatArr1d(args[2]);
-        expected = strToFloatArr1d(args[3]);
+        vals1 = TestUtils.strToFloatArr1d(args[1]);
+        vals2 = TestUtils.strToFloatArr1d(args[2]);
+        expected = TestUtils.strToFloatArr1d(args[3]);
 
         SingleQubit sq1 = new SingleQubit();
         SingleQubit sq2 = new SingleQubit();
@@ -572,13 +410,13 @@ public class TestQubits {
 
         DoubleQubit dq = sq1.mergeQubits(sq2);
 
-        if (arrEquals1d(dq.getValues(), expected)) {
+        if (TestUtils.arrEquals1d(dq.getValues(), expected)) {
             System.out.println("SingleQubit mergeQubits: Success!");
             return 1;
         } else {
             System.out.println("SingleQubit mergeQubits: FAIL!");
-            System.out.println("Expected: "+arrToStr(expected));
-            System.out.println("Actual: "+arrToStr(dq.getValues()));
+            System.out.println("Expected: "+TestUtils.arrToStr(expected));
+            System.out.println("Actual: "+TestUtils.arrToStr(dq.getValues()));
             return 0;
         }
     }
@@ -594,7 +432,7 @@ public class TestQubits {
 			return 0;
         }
 
-        values = strToFloatArr1d(args[1]);
+        values = TestUtils.strToFloatArr1d(args[1]);
 
         SingleQubit sq = new SingleQubit();
         DoubleQubit dq = new DoubleQubit();
@@ -623,8 +461,8 @@ public class TestQubits {
 			return 0;
         }
 
-        values = strToFloatArr1d(args[1]);
-        expected = strToFloatArr1d(args[2]);
+        values = TestUtils.strToFloatArr1d(args[1]);
+        expected = TestUtils.strToFloatArr1d(args[2]);
         if (args.length == 4) {
             pos = Integer.parseInt(args[3]);
         }
@@ -642,44 +480,44 @@ public class TestQubits {
             int toReturn = 0;
             sq.applyNotGate();
             dq.applyNotGate();
-            if (values.length == 2 && arrEquals1d(sq.getValues(), expected)) {
+            if (values.length == 2 && TestUtils.arrEquals1d(sq.getValues(), expected)) {
                 System.out.println("SingleQubit applyNotGate(): Success!");
                 toReturn += 1;
             } else if (values.length == 2){
                 System.out.println("SingleQubit applyNotGate(): FAIL!");
-                System.out.println("Expected: "+arrToStr(expected));
-                System.out.println("Actual: "+arrToStr(sq.getValues()));
+                System.out.println("Expected: "+TestUtils.arrToStr(expected));
+                System.out.println("Actual: "+TestUtils.arrToStr(sq.getValues()));
             }
     
-            if (values.length == 4 && arrEquals1d(dq.getValues(), expected)) {
+            if (values.length == 4 && TestUtils.arrEquals1d(dq.getValues(), expected)) {
                 System.out.println("DoubleQubit applyNotGate(): Success!");
                 toReturn += 1;
             } else if (values.length == 4){
                 System.out.println("DoubleQubit applyNotGate(): FAIL!");
-                System.out.println("Expected: "+arrToStr(expected));
-                System.out.println("Actual: "+arrToStr(dq.getValues()));
+                System.out.println("Expected: "+TestUtils.arrToStr(expected));
+                System.out.println("Actual: "+TestUtils.arrToStr(dq.getValues()));
             }
             return toReturn;
         } else {
             int toReturn = 0;
             sq.applyNotGate(pos);
             dq.applyNotGate(pos);
-            if (values.length == 2 && arrEquals1d(sq.getValues(), expected)) {
+            if (values.length == 2 && TestUtils.arrEquals1d(sq.getValues(), expected)) {
                 System.out.println("SingleQubit applyNotGate("+pos+"): Success!");
                 toReturn += 1;
             } else if (values.length == 2){
                 System.out.println("SingleQubit applyNotGate("+pos+"): FAIL!");
-                System.out.println("Expected: "+arrToStr(expected));
-                System.out.println("Actual: "+arrToStr(sq.getValues()));
+                System.out.println("Expected: "+TestUtils.arrToStr(expected));
+                System.out.println("Actual: "+TestUtils.arrToStr(sq.getValues()));
             }
     
-            if (values.length == 4 && arrEquals1d(dq.getValues(), expected)) {
+            if (values.length == 4 && TestUtils.arrEquals1d(dq.getValues(), expected)) {
                 System.out.println("DoubleQubit applyNotGate("+pos+"): Success!");
                 toReturn += 1;
             } else if (values.length == 4){
                 System.out.println("DoubleQubit applyNotGate("+pos+"): FAIL!");
-                System.out.println("Expected: "+arrToStr(expected));
-                System.out.println("Actual: "+arrToStr(dq.getValues()));
+                System.out.println("Expected: "+TestUtils.arrToStr(expected));
+                System.out.println("Actual: "+TestUtils.arrToStr(dq.getValues()));
             }
             return toReturn;
         }
@@ -698,8 +536,8 @@ public class TestQubits {
 			return 0;
         }
 
-        values = strToFloatArr1d(args[1]);
-        expected = strToFloatArr1d(args[2]);
+        values = TestUtils.strToFloatArr1d(args[1]);
+        expected = TestUtils.strToFloatArr1d(args[2]);
         if (args.length == 4) {
             pos = Integer.parseInt(args[3]);
         }
@@ -717,44 +555,44 @@ public class TestQubits {
             int toReturn = 0;
             sq.applyHGate();
             dq.applyHGate();
-            if (values.length == 2 && arrEquals1d(sq.getValues(), expected)) {
+            if (values.length == 2 && TestUtils.arrEquals1d(sq.getValues(), expected)) {
                 System.out.println("SingleQubit applyHGate(): Success!");
                 toReturn += 1;
             } else if (values.length == 2){
                 System.out.println("SingleQubit applyHGate(): FAIL!");
-                System.out.println("Expected: "+arrToStr(expected));
-                System.out.println("Actual: "+arrToStr(sq.getValues()));
+                System.out.println("Expected: "+TestUtils.arrToStr(expected));
+                System.out.println("Actual: "+TestUtils.arrToStr(sq.getValues()));
             }
     
-            if (values.length == 4 && arrEquals1d(dq.getValues(), expected)) {
+            if (values.length == 4 && TestUtils.arrEquals1d(dq.getValues(), expected)) {
                 System.out.println("DoubleQubit applyHGate(): Success!");
                 toReturn += 1;
             } else if (values.length == 4){
                 System.out.println("DoubleQubit applyHGate(): FAIL!");
-                System.out.println("Expected: "+arrToStr(expected));
-                System.out.println("Actual: "+arrToStr(dq.getValues()));
+                System.out.println("Expected: "+TestUtils.arrToStr(expected));
+                System.out.println("Actual: "+TestUtils.arrToStr(dq.getValues()));
             }
             return toReturn;
         } else {
             int toReturn = 0;
             sq.applyHGate(pos);
             dq.applyHGate(pos);
-            if (values.length == 2 && arrEquals1d(sq.getValues(), expected)) {
+            if (values.length == 2 && TestUtils.arrEquals1d(sq.getValues(), expected)) {
                 System.out.println("SingleQubit applyHGate("+pos+"): Success!");
                 toReturn += 1;
             } else if (values.length == 2){
                 System.out.println("SingleQubit applyHGate("+pos+"): FAIL!");
-                System.out.println("Expected: "+arrToStr(expected));
-                System.out.println("Actual: "+arrToStr(sq.getValues()));
+                System.out.println("Expected: "+TestUtils.arrToStr(expected));
+                System.out.println("Actual: "+TestUtils.arrToStr(sq.getValues()));
             }
     
-            if (values.length == 4 && arrEquals1d(dq.getValues(), expected)) {
+            if (values.length == 4 && TestUtils.arrEquals1d(dq.getValues(), expected)) {
                 System.out.println("DoubleQubit applyHGate("+pos+"): Success!");
                 toReturn += 1;
             } else if (values.length == 4){
                 System.out.println("DoubleQubit applyHGate("+pos+"): FAIL!");
-                System.out.println("Expected: "+arrToStr(expected));
-                System.out.println("Actual: "+arrToStr(dq.getValues()));
+                System.out.println("Expected: "+TestUtils.arrToStr(expected));
+                System.out.println("Actual: "+TestUtils.arrToStr(dq.getValues()));
             }
             return toReturn;
         }
@@ -772,20 +610,20 @@ public class TestQubits {
 			return 0;
         }
 
-        values = strToFloatArr1d(args[1]);
-        expected = strToFloatArr1d(args[2]);
+        values = TestUtils.strToFloatArr1d(args[1]);
+        expected = TestUtils.strToFloatArr1d(args[2]);
 
         DoubleQubit dq = new DoubleQubit();
         dq.setValues(values);
         dq.applySwapGate(0, 1);
 
-        if (arrEquals1d(dq.getValues(), expected)) {
-            System.out.println("DoubleQubit applySwapGate("+arrToStr(values)+"): Success!");
+        if (TestUtils.arrEquals1d(dq.getValues(), expected)) {
+            System.out.println("DoubleQubit applySwapGate("+TestUtils.arrToStr(values)+"): Success!");
             return 1;
         } else {
-            System.out.println("DoubleQubit applySwapGate("+arrToStr(values)+"): FAIL!");
-            System.out.println("Expected: "+arrToStr(expected));
-            System.out.println("Actual: "+arrToStr(dq.getValues()));
+            System.out.println("DoubleQubit applySwapGate("+TestUtils.arrToStr(values)+"): FAIL!");
+            System.out.println("Expected: "+TestUtils.arrToStr(expected));
+            System.out.println("Actual: "+TestUtils.arrToStr(dq.getValues()));
             return 0;
         }
     }
@@ -795,7 +633,7 @@ public class TestQubits {
 
         float[] check = new float[]{1f, 0f};
 
-        if (sq.getNumQubits() == 1 && arrEquals1d(sq.getValues(), check)) {
+        if (sq.getNumQubits() == 1 && TestUtils.arrEquals1d(sq.getValues(), check)) {
             System.out.println("SingleQubit Consutrctor: Success!");
             return 1;
         } else {
@@ -808,8 +646,8 @@ public class TestQubits {
         float[] vals1;
         float[] vals2;
 
-        vals1 = strToFloatArr1d(args[1]);
-        vals2 = strToFloatArr1d(args[2]);
+        vals1 = TestUtils.strToFloatArr1d(args[1]);
+        vals2 = TestUtils.strToFloatArr1d(args[2]);
 
         SingleQubit sq1 = new SingleQubit();
         SingleQubit sq2 = new SingleQubit();
@@ -819,7 +657,7 @@ public class TestQubits {
 
         DoubleQubit dq = sq1.mergeQubits(sq2);
 
-        System.out.println(arrToStr(dq.getValues()));
+        System.out.println(TestUtils.arrToStr(dq.getValues()));
     }
 
     public static void main(String[] args) {
