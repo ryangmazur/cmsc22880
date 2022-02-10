@@ -19,6 +19,6 @@ public class QCircuit {
     // implement the algorithm.
     // no return value is necessary because you modify the input nq.
     public static void archimedes(NQubit nq, QOracle qo) {
-
+        qo.probeArchimedes(nq);
     }
 }

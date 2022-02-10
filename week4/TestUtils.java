@@ -111,31 +111,6 @@ public class TestUtils {
         return toReturn;
     }
 
-    public static int[] strToIntArr(String str) {
-        int numCommas = 0;
-        for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) == ',') {
-                numCommas++;
-            }
-        }
-        numCommas++;
-        int[] toReturn = new int[numCommas];
-
-        String subStr = "";
-        int pos = 0;
-        for (int i = 0; i < str.length(); i++) {
-            if (str.charAt(i) == ',') {
-                toReturn[pos] = Integer.parseInt(subStr);
-                subStr = "";
-                pos++;
-            } else {
-                subStr = subStr + str.charAt(i);
-            }
-        }
-        toReturn[pos] = Integer.parseInt(subStr);
-        return toReturn;
-    }
-
     public static float[] strToFloatArr1d(String str) {
         int numCommas = 0;
         for (int i = 0; i < str.length(); i++) {
@@ -158,6 +133,73 @@ public class TestUtils {
             }
         }
         toReturn[pos] = Float.parseFloat(subStr);
+        return toReturn;
+    }
+
+    public static int[][] fillRow(int[][] arr, int[] subArr, int row) {
+        for (int i = 0; i < subArr.length; i++) {
+            arr[row][i] = subArr[i];
+        }
+        return arr;
+    }
+    
+    public static int[][] strToIntArr2d(String str) {
+        int rows = 0;
+        int cols = 0;
+        int numCommas = 0;
+
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == ',') {
+                numCommas++;
+            } else if (str.charAt(i) == ';') {
+                rows++;
+                if (cols == 0) {
+                    cols = numCommas + 1;
+                }
+            }
+        }
+
+        rows++;
+        int[][] toReturn = new int[rows][cols];
+        String subStr = "";
+        int i = 0;
+        int currRow = 0;
+        while(i < str.length()) {
+            if (str.charAt(i) == ';') {
+                toReturn = fillRow(toReturn, strToIntArr1d(subStr), currRow);
+                subStr = "";
+                currRow++;
+            } else {
+                subStr = subStr + str.charAt(i);
+            }
+            i++;
+        }
+
+        return toReturn;
+    }
+
+    public static int[] strToIntArr1d(String str) {
+        int numCommas = 0;
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == ',') {
+                numCommas++;
+            }
+        }
+        numCommas++;
+        int[] toReturn = new int[numCommas];
+
+        String subStr = "";
+        int pos = 0;
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == ',') {
+                toReturn[pos] = Integer.parseInt(subStr);
+                subStr = "";
+                pos++;
+            } else {
+                subStr = subStr + str.charAt(i);
+            }
+        }
+        toReturn[pos] = Integer.parseInt(subStr);
         return toReturn;
     }
 }

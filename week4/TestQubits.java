@@ -255,7 +255,7 @@ public class TestQubits {
         }
 
         values = TestUtils.strToFloatArr1d(args[1]);
-        phases = TestUtils.strToIntArr(args[2]);
+        phases = TestUtils.strToIntArr1d(args[2]);
 
         SingleQubit sq = new SingleQubit();
         DoubleQubit dq = new DoubleQubit();
