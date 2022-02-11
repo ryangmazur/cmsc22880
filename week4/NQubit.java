@@ -26,7 +26,7 @@ public class NQubit extends ParentQubit {
                     toReturn = toReturn + " + ";
                 }
             }
-            toReturn = toReturn + String.format("%.2f", Math.abs(this.values[i])) + "|" + getBinary(i, this.getNumQubits()) + ">";
+            toReturn = toReturn + String.format("%.2f", Math.pow(Math.abs(this.values[i]), 2)) + "|" + getBinary(i, this.getNumQubits()) + ">";
         }
         
         return toReturn;

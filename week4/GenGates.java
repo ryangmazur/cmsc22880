@@ -99,11 +99,15 @@ public class GenGates {
 
         for (int i = 0; i < len; i++) {
             int index = i;
-            if ((i & 1) == 0 && (i & (1 << qb)) == 1) {
-                index += 1;
-            } else if ((i & 1) == 1 && (i & (1 << qb)) == 1) {
-                index -= 1;
+            if ((i & (1 << qb)) != 0) {
+                index ^= 1;
             }
+            //System.out.println(index);
+            // if ((i & 1) == 0 && (i & (1 << qb)) == 1) {
+            //     index += 1;
+            // } else if ((i & 1) == 1 && (i & (1 << qb)) == 1) {
+            //     index -= 1;
+            // }
             for (int j = 0; j < len; j++) {
                 if (j == index) {
                     toReturn[i][j] = 1;

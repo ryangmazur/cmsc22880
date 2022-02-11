@@ -12,11 +12,14 @@ public class QOracle {
         boolean first = true;
 
         for (int i = 0; i < 3; i++) {
-            if ((code & (1 << i)) == 1) {
+            //System.out.println("Before if");
+            if ((code & (1 << i)) != 0) {
                 if (first) {
+                    //System.out.println("First");
                     toReturn = GenGates.genCNot(i + 1, 4);
                     first = false;
                 } else {
+                    //System.out.println("Not First");
                     toReturn = MatrixMath.matrixMult(toReturn, GenGates.genCNot(i + 1, 4));
                 }
             }
@@ -67,5 +70,9 @@ public class QOracle {
         float[][] hgates = MatrixMath.tensorProd(MatrixMath.tensorProd(GenGates.genHGate(), GenGates.genHGate()), MatrixMath.tensorProd(GenGates.genHGate(), GenGates.genHGate()));
 
         nq.setAmpValues(MatrixMath.matrixMult(MatrixMath.matrixMult(hgates, this.matr), MatrixMath.matrixMult(hgates, nq.getAmpValues())));
+    }
+
+    public float[][] getMatr() {
+        return this.matr;
     }
 }
