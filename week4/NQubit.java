@@ -26,7 +26,7 @@ public class NQubit extends ParentQubit {
                     toReturn = toReturn + " + ";
                 }
             }
-            toReturn = toReturn + String.format("%.2f", Math.abs(this.values[i])) + "|" + getBinary(i, 2) + ">";
+            toReturn = toReturn + String.format("%.2f", Math.abs(this.values[i])) + "|" + getBinary(i, this.getNumQubits()) + ">";
         }
         
         return toReturn;
@@ -35,7 +35,6 @@ public class NQubit extends ParentQubit {
     // apply a not gate to every qubit
     public void applyNotGate() {
         float[][] notGate = GenGates.genNotGate(this.getNumQubits());
-        
         this.values = MatrixMath.matrixMult(notGate, this.values);
     }
 

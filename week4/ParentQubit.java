@@ -68,7 +68,7 @@ public abstract class ParentQubit {
 
     // returns the number of qubits this object represents
     public int getNumQubits() {
-        return (int) Math.sqrt(this.values.length);
+        return (int) (Math.log(this.values.length)/Math.log(2));
     }
 
     // citation for inspiration for this function: https://stackoverflow.com/questions/2406432/converting-an-int-to-a-binary-string-representation-in-java
