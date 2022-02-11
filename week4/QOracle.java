@@ -49,6 +49,10 @@ public class QOracle {
     // code modifies that starting matrix. Once you have figured it out on paper,
     // then you can work on how to implement that in code.
     public void setArchimedes(int[] codes) {
+        if (codes.length == 0) {
+            GenGates.genIdentityGate(4);
+            return;
+        }
         this.matr = createBernVaz(codes[0]);
 
         for (int i = 1; i < codes.length; i++) {
