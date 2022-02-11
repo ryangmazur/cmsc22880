@@ -20,11 +20,8 @@ public class SingleQubit extends ParentQubit {
         float[] vals = new float[2];
         vals[0] = pq.getPhase(0) * (float) Math.sqrt(Math.abs(pq.getValue(0)));
         vals[1] = pq.getPhase(1) * (float) Math.sqrt(Math.abs(pq.getValue(1)));
-        System.out.println(TestQubits.arrToStr(this.values));
-        System.out.println(TestQubits.arrToStr(vals));
 
         float[] allVals = MatrixMath.tensorProd(this.values, vals);
-        System.out.println(TestQubits.arrToStr(allVals));
         float[] newVals = new float[allVals.length];
         for (int i = 0; i < allVals.length; i++) {
             int phase;
