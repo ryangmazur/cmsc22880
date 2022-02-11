@@ -68,7 +68,7 @@ public class MatrixMath {
         float[][] toReturn = new float[shape1[0]][shape2[1]];
         for (int i = 0; i < shape1[0]; i++) {
             for (int j = 0; j < shape2[1]; j++) {
-                int val = 0;
+                float val = 0;
                 for (int k = 0; k < shape1[1]; k++) {
                     val += matr1[i][k] * matr2[k][j];
                 }
