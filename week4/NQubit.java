@@ -39,7 +39,7 @@ public class NQubit extends ParentQubit {
                     toReturn = toReturn + " + ";
                 }
             }
-            if (all_equals && this.getValue(0) == .5f) {
+            if (all_equals && (this.getValue(0) - .5f ) < EPSILON) {
                 toReturn = toReturn + String.format("%.1f", Math.abs(this.values[i])) + "|" + getBinary(i, this.getNumQubits()) + ">";
             } else {
                 toReturn = toReturn + String.format("%.2f", Math.abs(this.values[i])) + "|" + getBinary(i, this.getNumQubits()) + ">";
