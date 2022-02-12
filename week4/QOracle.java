@@ -7,7 +7,8 @@ public class QOracle {
     }
     
     private float[][] createBernVaz(int code) {
-        float[][] toReturn = new float[16][16];
+        float[][] toReturn = GenGates.genIdentityGate(4);
+        //float[][] toReturn = new float[16][16];
 
         boolean first = true;
 

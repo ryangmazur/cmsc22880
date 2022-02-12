@@ -277,6 +277,13 @@ public class TestNQubits {
         }
     }
 
+    public static void testUtil(String[] args) {
+        QOracle bz = new QOracle();
+        bz.setBernVaz(000);
+
+        System.out.println(TestUtils.arrToStr(bz.getMatr()));
+    }
+
     public static void main(String[] args) {
         int testNumber;
 
@@ -307,6 +314,9 @@ public class TestNQubits {
                 break;
             case(7):
                 testArchimedes(args);
+                break;
+            case(8):
+                testUtil(args);
                 break;
             default:
                 System.out.println("Test " + testNumber + " not supported");
