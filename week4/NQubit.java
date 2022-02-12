@@ -16,6 +16,19 @@ public class NQubit extends ParentQubit {
 
     // this prints out the state in bra-ket notation, like last week
     public String toBraKet() {
+        if (this.getValue(0) == 1) {
+            return "|" + getBinary(0, this.getNumQubits()) + ">";
+        }
+
+        float int_val = this.getValue(0);
+        float EPSILON = 0.0001f;
+        boolean all_equals = true;
+        for (int i = 1; i < (int) Math.pow(2, this.getNumQubits()); i++) {
+            if ((this.getValue(i) - int_val) > EPSILON) {
+                all_equals = false;
+            }
+        }
+
         String toReturn = "";
 
         for (int i = 0; i < this.values.length; i++) {
@@ -26,7 +39,12 @@ public class NQubit extends ParentQubit {
                     toReturn = toReturn + " + ";
                 }
             }
-            toReturn = toReturn + String.format("%.2f", Math.abs(this.values[i])) + "|" + getBinary(i, this.getNumQubits()) + ">";
+            if (!all_equals) {
+                toReturn = toReturn + String.format("%.2f", Math.abs(this.values[i])) + "|" + getBinary(i, this.getNumQubits()) + ">";
+            } else {
+                toReturn = toReturn + String.format("%.1f", Math.abs(this.values[i])) + "|" + getBinary(i, this.getNumQubits()) + ">";
+            }
+            
         }
         
         return toReturn;
