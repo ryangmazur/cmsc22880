@@ -308,9 +308,6 @@ public class TestNQubits {
             case(7):
                 testArchimedes(args);
                 break;
-            case(8):
-                util();
-                break;
             default:
                 System.out.println("Test " + testNumber + " not supported");
         }

@@ -1,2 +1,2 @@
-TestQubit: ParentQubit.java SingleQubit.java DoubleQubit.java TestQubits.java MatrixMath.java GenGates.java NQubit.java QCircuit.java QOracle.java TestUtils.java TestNQubits.java
-	javac ParentQubit.java SingleQubit.java DoubleQubit.java TestQubits.java MatrixMath.java GenGates.java NQubit.java QCircuit.java QOracle.java TestUtils.java TestNQubits.java
+TestQubit: ParentQubit.java DoubleQubit.java MatrixMath.java GenGates.java NQubit.java QCircuit.java QOracle.java TestUtils.java TestNQubits.java
+	javac ParentQubit.java DoubleQubit.java MatrixMath.java GenGates.java NQubit.java QCircuit.java QOracle.java TestUtils.java TestNQubits.java
