@@ -278,9 +278,12 @@ public class TestNQubits {
     }
 
     public static void testUtil(String[] args) {
-        float[][] gate = GenGates.genSwapGate(0, 3, 3);
+        NQubit nq = new NQubit(3);
+        float[] vals = new float[]{.25f,0f,.0f,.25f,.25f,.0f,0f,.25f};
+        nq.setValues(vals);
+        nq.applySwapGate(0, 2);
 
-        System.out.println(TestUtils.arrToStr(gate));
+        System.out.println(TestUtils.arrToStr(nq.getValues()));
     }
 
     public static void main(String[] args) {

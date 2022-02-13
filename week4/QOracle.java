@@ -54,7 +54,7 @@ public class QOracle {
     // then you can work on how to implement that in code.
     public void setArchimedes(int[] codes) {
         if (codes.length == 0) {
-            GenGates.genIdentityGate(4);
+            this.matr = GenGates.genIdentityGate(4);
             return;
         }
         this.matr = createBernVaz(codes[0]);
