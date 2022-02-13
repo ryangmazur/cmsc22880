@@ -278,10 +278,9 @@ public class TestNQubits {
     }
 
     public static void testUtil(String[] args) {
-        QOracle bz = new QOracle();
-        bz.setBernVaz(000);
+        float[][] gate = GenGates.genSwapGate(0, 3, 3);
 
-        System.out.println(TestUtils.arrToStr(bz.getMatr()));
+        System.out.println(TestUtils.arrToStr(gate));
     }
 
     public static void main(String[] args) {
