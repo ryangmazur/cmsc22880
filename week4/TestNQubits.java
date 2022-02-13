@@ -278,12 +278,21 @@ public class TestNQubits {
     }
 
     public static void testUtil(String[] args) {
-        NQubit nq = new NQubit(3);
-        float[] vals = new float[]{.25f,0f,.0f,.25f,.25f,.0f,0f,.25f};
-        nq.setValues(vals);
-        nq.applySwapGate(0, 2);
+        float[][] gate = GenGates.genCNot(1, 4);
+        float[][] hgates = MatrixMath.tensorProd(MatrixMath.tensorProd(GenGates.genHGate(), GenGates.genHGate()), MatrixMath.tensorProd(GenGates.genHGate(), GenGates.genHGate()));
+        
+        float[] values = new float[]{0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0};
 
-        System.out.println(TestUtils.arrToStr(nq.getValues()));
+        NQubit nq = new NQubit(4);
+        nq.setValues(values);
+
+        //nq.setAmpValues(MatrixMath.matrixMult(MatrixMath.matrixMult(hgates, gate), MatrixMath.matrixMult(hgates, nq.getAmpValues())));
+
+        //float[] matr = MatrixMath.matrixMult(hgates, nq.getAmpValues());
+        float[] matr = MatrixMath.matrixMult(gate, values);
+        //matr = MatrixMath.matrixMult(hgates, matr);
+
+        System.out.println(TestUtils.arrToStr(matr));
     }
 
     public static void main(String[] args) {

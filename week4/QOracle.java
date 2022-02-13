@@ -8,19 +8,15 @@ public class QOracle {
     
     private float[][] createBernVaz(int code) {
         float[][] toReturn = GenGates.genIdentityGate(4);
-        //float[][] toReturn = new float[16][16];
 
         boolean first = true;
 
         for (int i = 0; i < 3; i++) {
-            //System.out.println("Before if");
             if ((code & (1 << i)) != 0) {
                 if (first) {
-                    //System.out.println("First");
                     toReturn = GenGates.genCNot(i + 1, 4);
                     first = false;
                 } else {
-                    //System.out.println("Not First");
                     toReturn = MatrixMath.matrixMult(toReturn, GenGates.genCNot(i + 1, 4));
                 }
             }
