@@ -127,7 +127,7 @@ import qiskit
 def hw3_1b_response(num_shots):
     # Put your code here (spaces for indentation)
     # End Code
-    return circuit, result_dict
+    return # circuit, result_dict
       
 
 # %% [markdown]
@@ -145,8 +145,9 @@ import qiskit
 
 def hw3_1c_response(num_shots):
     # Put your code here (spaces for indentation)
+
     # End Code
-    return circuit, result_dict
+    return # circuit, result_dict
       
       
 
@@ -208,7 +209,7 @@ def hw3_2_response(circuit):
     # Put your code here (spaces for indentation)
     # End Code
 
-    return qubit_1, qubit_2
+    return # qubit_1, qubit_2
       
 
 # %% [markdown]
@@ -238,7 +239,7 @@ def hw3_3_response(circuit):
     # Put your code here (spaces for indentation)
     # End Code
 
-    return qubit_1, qubit_2
+    return # qubit_1, qubit_2
       
 
 # %% [markdown]
