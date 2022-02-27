@@ -60,6 +60,7 @@ def hw3_1a_response(circuit, qubit1, qubit2):
     
     # qc1.h(0)
     # qc1.cx(0,1)
+    print("hello")
 
     return circuit
 
@@ -127,7 +128,9 @@ import qiskit
 def hw3_1b_response(num_shots):
     # Put your code here (spaces for indentation)
     # End Code
-    return # circuit, result_dict
+    print("hello")
+    return
+    # return circuit, result_dict
       
 
 # %% [markdown]
@@ -145,11 +148,12 @@ import qiskit
 
 def hw3_1c_response(num_shots):
     # Put your code here (spaces for indentation)
-
+    
+    print(num_shots)
+    
     # End Code
-    return # circuit, result_dict
-      
-      
+    # return circuit, result_dict
+    return 
 
 # %% [markdown]
 # # Some Quick Notes on Programming in Python
@@ -208,9 +212,10 @@ def hw3_2_response(circuit):
 
     # Put your code here (spaces for indentation)
     # End Code
+    print("hello")
 
-    return # qubit_1, qubit_2
-      
+    # return qubit_1, qubit_2
+    return
 
 # %% [markdown]
 # # Exercise 3: Different EPR Pairs
@@ -239,7 +244,8 @@ def hw3_3_response(circuit):
     # Put your code here (spaces for indentation)
     # End Code
 
-    return # qubit_1, qubit_2
+    # return qubit_1, qubit_2
+    return
       
 
 # %% [markdown]
@@ -267,6 +273,7 @@ import qiskit
 
 def hw3_4_response(n: int):
     # Put your code here
+    print(n)
     # End Code
 
     return
