@@ -55,10 +55,15 @@ import qiskit
 
 def hw3_1a_response(circuit, qubit1, qubit2):
     # Put your code here (spaces for indentation)
-    circuit.h(0)
-    circuit.cx(0, 1)
+    qr1 = qiskit.QuantumRegister(2, [qubit1, qubit2])
+    qc1 = qiskit.QuantumCircuit(qr1, circuit)
+    
+    qc1.h(0)
+    qc1.cx(0,1)
 
     return circuit
+
+
 
 # %% [markdown]
 # # Simulating a Quantum Circuit
