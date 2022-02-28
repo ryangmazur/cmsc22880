@@ -285,11 +285,12 @@ import qiskit
 from qiskit.providers.aer import QasmSimulator
 
 def prime_circuit(circuit, qubit_list, bitstring):
+    print(qubit_list.len())
     print(bitstring)
     for i in range(0,len(bitstring)):
         if bitstring[i] == '1':
             print("Applying Not to index: " + str(i))
-            circuit.x(-i - 1)
+            circuit.x(qubit_list.len() - 1)
 
     return circuit
 
