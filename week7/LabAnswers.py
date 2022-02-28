@@ -287,7 +287,7 @@ from qiskit.providers.aer import QasmSimulator
 def prime_circuit(circuit, qubit_list, bitstring):
     for i in range(0,len(bitstring)):
         if bitstring[i] == '1':
-            print("Applying Not to index: "+i)
+            print("Applying Not to index: " + str(i))
             circuit.x(i)
             # qubit_list[i].x()
 
@@ -343,7 +343,6 @@ def hw3_3_response(circuit):
 # circuit.h(4)
 # circuit.h(5)
 # print(hw3_3_response(circuit))
-
 
 
 # %% [markdown]
