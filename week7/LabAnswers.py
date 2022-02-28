@@ -289,6 +289,7 @@ def prime_circuit(circuit, qubit_list, bitstring):
         if bitstring[i] == '1':
             print("Applying Not to index: " + str(i))
             circuit.x(i)
+            # ?
             # qubit_list[i].x()
 
     return circuit
