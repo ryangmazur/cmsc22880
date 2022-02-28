@@ -285,6 +285,7 @@ import qiskit
 from qiskit.providers.aer import QasmSimulator
 
 def prime_circuit(circuit, qubit_list, bitstring):
+    # extra commit for some reason
     print(qubit_list.len())
     print(bitstring)
     for i in range(0,len(bitstring)):
