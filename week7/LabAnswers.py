@@ -60,10 +60,10 @@ def hw3_1a_response(circuit, qubit1, qubit2):
 
     return circuit
 
-reg = qiskit.QuantumRegister(2)
-circuit = qiskit.QuantumCircuit(reg)
+# reg = qiskit.QuantumRegister(2)
+# circuit = qiskit.QuantumCircuit(reg)
 
-print(hw3_1a_response(circuit, 1, 0))
+# print(hw3_1a_response(circuit, 1, 0))
 
 # %% [markdown]
 # # Simulating a Quantum Circuit
@@ -141,7 +141,7 @@ def hw3_1b_response(num_shots):
     # End Code
     return circuit, result_dict
 
-hw3_1b_response(1024)
+# hw3_1b_response(1024)
 
 # %% [markdown]
 # # Exercise 1c: Simulating Superposition
@@ -173,7 +173,7 @@ def hw3_1c_response(num_shots):
     # End Code
     return circuit, result_dict
 
-hw3_1b_response(1024)
+# hw3_1b_response(1024)
 
 # %% [markdown]
 # # Some Quick Notes on Programming in Python
@@ -254,16 +254,16 @@ def hw3_2_response(circuit):
     # End Code
     return qubit_1, qubit_2
 
-reg = qiskit.QuantumRegister(6)
-circuit = qiskit.QuantumCircuit(reg)
+# reg = qiskit.QuantumRegister(6)
+# circuit = qiskit.QuantumCircuit(reg)
 
-circuit.h(0)
-circuit.cx(0,1)
-circuit.h(2)
-circuit.h(3)
-circuit.h(4)
-circuit.h(5)
-print(hw3_2_response(circuit))
+# circuit.h(0)
+# circuit.cx(0,1)
+# circuit.h(2)
+# circuit.h(3)
+# circuit.h(4)
+# circuit.h(5)
+# print(hw3_2_response(circuit))
 
 # %% [markdown]
 # # Exercise 3: Different EPR Pairs
@@ -333,16 +333,16 @@ def hw3_3_response(circuit):
     # End Code
       
 
-reg = qiskit.QuantumRegister(6)
-circuit = qiskit.QuantumCircuit(reg)
+# reg = qiskit.QuantumRegister(6)
+# circuit = qiskit.QuantumCircuit(reg)
 
-circuit.h(0)
-circuit.cx(0,1)
-circuit.h(2)
-circuit.h(3)
-circuit.h(4)
-circuit.h(5)
-print(hw3_3_response(circuit))
+# circuit.h(0)
+# circuit.cx(0,1)
+# circuit.h(2)
+# circuit.h(3)
+# circuit.h(4)
+# circuit.h(5)
+# print(hw3_3_response(circuit))
 
 # %% [markdown]
 # # Exercise 4: Entangling Multiple Qubits
@@ -380,7 +380,7 @@ def hw3_4_response(n: int):
 
     return circuit
 
-print(hw3_4_response(2))
+# print(hw3_4_response(2))
 
 # %% [markdown]
 # # Submission
