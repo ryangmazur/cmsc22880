@@ -55,12 +55,11 @@ import qiskit
 
 def hw3_1a_response(circuit, qubit1, qubit2):
     # Put your code here (spaces for indentation)
-    # qr1 = qiskit.QuantumRegister(2, [qubit1, qubit2])
-    # qc1 = qiskit.QuantumCircuit(qr1, circuit)
+    qr1 = qiskit.QuantumRegister(2, [qubit1, qubit2])
+    qc1 = qiskit.QuantumCircuit(qr1, circuit)
     
-    # qc1.h(0)
-    # qc1.cx(0,1)
-    print("hello")
+    qc1.h(0)
+    qc1.cx(0,1)
 
     return circuit
 
@@ -124,14 +123,23 @@ def hw3_1a_response(circuit, qubit1, qubit2):
 
 # %%
 import qiskit
+from qiskit.providers.aer import QasmSimulator
 
 def hw3_1b_response(num_shots):
     # Put your code here (spaces for indentation)
+    simulator = QasmSimulator()
+    reg = qiskit.QuantumRegister(2)
+    circuit = qiskit.QuantumCircuit(reg)
+
+    circuit.h(0)
+    circuit.cx(0,1)
+    circuit.measure_all()
+
+    executed_job = qiskit.execute(circuit, simulator, shots=num_shots)
+    r = executed_job.result()
+    result_dict = r.get_counts(circuit)
     # End Code
-    print("hello")
-    return
-    # return circuit, result_dict
-      
+    return circuit, result_dict
 
 # %% [markdown]
 # # Exercise 1c: Simulating Superposition
@@ -148,12 +156,21 @@ import qiskit
 
 def hw3_1c_response(num_shots):
     # Put your code here (spaces for indentation)
-    
-    print(num_shots)
-    
+    simulator = QasmSimulator()
+    reg = qiskit.QuantumRegister(2)
+    circuit = qiskit.QuantumCircuit(reg)
+
+    circuit.h(0)
+    circuit.h(1)
+    circuit.measure_all()
+
+    executed_job = qiskit.execute(circuit, simulator, shots=num_shots)
+    r = executed_job.result()
+    result_dict = r.get_counts(circuit)
     # End Code
-    # return circuit, result_dict
-    return 
+    return circuit, result_dict
+
+hw3_1c_response(1024)
 
 # %% [markdown]
 # # Some Quick Notes on Programming in Python
@@ -209,13 +226,29 @@ import qiskit
 
 def hw3_2_response(circuit):
     # Put your code to find the entangled qubits here
+    simulator = QasmSimulator()
 
+    circuit.measure_all()
+
+    executed_job = qiskit.execute(circuit, simulator, shots=1024)
+    r = executed_job.result()
+    result_dict = r.get_counts(circuit)
+
+    bitstrings = ["000001", "000010", "000100", "001000", "010000", "100000"]
+    qubit_1 = -1
+    qubit_2 = -1
+    one_or_two = 1
+
+    for i in range(0,6):
+        if result_dict.get(bitstrings[i]) == None:
+            if one_or_two == 1:
+                qubit_1 = i
+                one_or_two = 2
+            else:
+                qubit_2 = i
     # Put your code here (spaces for indentation)
     # End Code
-    print("hello")
-
-    # return qubit_1, qubit_2
-    return
+    return qubit_1, qubit_2
 
 # %% [markdown]
 # # Exercise 3: Different EPR Pairs
@@ -236,16 +269,51 @@ def hw3_2_response(circuit):
 import qiskit
 
 def prime_circuit(circuit, qubit_list, bitstring):
+    for i in range(0,bitstring.len()):
+        if bitstring[i] == '1':
+            qubit_list[i].x()
+    
+
     return circuit
 
 def hw3_3_response(circuit):
     # Put your code to find the entangled qubits here
+    simulator = QasmSimulator()
+
+    circuit.measure_all()
+
+    executed_job = qiskit.execute(circuit, simulator, shots=1024)
+    r = executed_job.result()
+    result_dict = r.get_counts(circuit)
+
+    bitstrings = ["000001", "000010", "000100", "001000", "010000", "100000"]
+    qubit_1 = -1
+    qubit_2 = -1
+
+    for i in range(0,6):
+        if result_dict.get(bitstrings[i]) == None:
+            if one_or_two == 1:
+                qubit_1 = i
+                one_or_two = 2
+            else:
+                qubit_2 = i
+
+    if qubit_1 != -1 and qubit_2 != -1:
+        return qubit_1, qubit_2
+
+    for i in range(0,5):
+        for j in range(1,6):
+            bitstring = "000000"
+            bitstring[i] == '1'
+            bitstring[j] == '1'
+
+            if result_dict.get(bitstring) == None:
+                qubit_1 = j
+                qubit_2 = i
+                return qubit_1, qubit_2
 
     # Put your code here (spaces for indentation)
     # End Code
-
-    # return qubit_1, qubit_2
-    return
       
 
 # %% [markdown]
@@ -273,11 +341,16 @@ import qiskit
 
 def hw3_4_response(n: int):
     # Put your code here
-    print(n)
+    reg = qiskit.QuantumRegister(n)
+    circuit = qiskit.QuantumCircuit(reg)
+
+    circuit.h(0)
+
+    for i in range(1, n):
+        circuit.cx(0, i)
     # End Code
 
-    return
-      
+    return circuit
 
 # %% [markdown]
 # # Submission
