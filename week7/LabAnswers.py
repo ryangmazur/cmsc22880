@@ -63,8 +63,6 @@ def hw3_1a_response(circuit, qubit1, qubit2):
 
     return circuit
 
-
-
 # %% [markdown]
 # # Simulating a Quantum Circuit
 # 
@@ -153,6 +151,7 @@ def hw3_1b_response(num_shots):
 
 # %%
 import qiskit
+from qiskit.providers.aer import QasmSimulator
 
 def hw3_1c_response(num_shots):
     # Put your code here (spaces for indentation)
@@ -169,8 +168,6 @@ def hw3_1c_response(num_shots):
     result_dict = r.get_counts(circuit)
     # End Code
     return circuit, result_dict
-
-hw3_1c_response(1024)
 
 # %% [markdown]
 # # Some Quick Notes on Programming in Python
@@ -223,6 +220,7 @@ hw3_1c_response(1024)
 
 # %%
 import qiskit
+from qiskit.providers.aer import QasmSimulator
 
 def hw3_2_response(circuit):
     # Put your code to find the entangled qubits here
@@ -267,6 +265,7 @@ def hw3_2_response(circuit):
 
 # %%
 import qiskit
+from qiskit.providers.aer import QasmSimulator
 
 def prime_circuit(circuit, qubit_list, bitstring):
     for i in range(0,bitstring.len()):
