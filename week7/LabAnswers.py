@@ -60,6 +60,11 @@ def hw3_1a_response(circuit, qubit1, qubit2):
 
     return circuit
 
+reg = qiskit.QuantumRegister(2)
+circuit = qiskit.QuantumCircuit(reg)
+
+print(hw3_1a_response(circuit, 1, 0))
+
 # %% [markdown]
 # # Simulating a Quantum Circuit
 # 
@@ -136,6 +141,8 @@ def hw3_1b_response(num_shots):
     # End Code
     return circuit, result_dict
 
+hw3_1b_response(1024)
+
 # %% [markdown]
 # # Exercise 1c: Simulating Superposition
 # 
@@ -165,6 +172,8 @@ def hw3_1c_response(num_shots):
     result_dict = r.get_counts(circuit)
     # End Code
     return circuit, result_dict
+
+hw3_1b_response(1024)
 
 # %% [markdown]
 # # Some Quick Notes on Programming in Python
@@ -245,6 +254,17 @@ def hw3_2_response(circuit):
     # End Code
     return qubit_1, qubit_2
 
+reg = qiskit.QuantumRegister(6)
+circuit = qiskit.QuantumCircuit(reg)
+
+circuit.h(0)
+circuit.cx(0,1)
+circuit.h(2)
+circuit.h(3)
+circuit.h(4)
+circuit.h(5)
+print(hw3_2_response(circuit))
+
 # %% [markdown]
 # # Exercise 3: Different EPR Pairs
 # This exercise is identical to Exercise 2 except for one major difference: the two entangled qubits are not necessarily in the "same entangle" state. We know that they were not in superposition when they became entangled, but we do not know which of the states |00>, |01>, |10>, or |11> they were in when they became entangled.
@@ -285,6 +305,7 @@ def hw3_3_response(circuit):
     bitstrings = ["000001", "000010", "000100", "001000", "010000", "100000"]
     qubit_1 = -1
     qubit_2 = -1
+    one_or_two = 1
 
     for i in range(0,6):
         if result_dict.get(bitstrings[i]) == None:
@@ -311,6 +332,17 @@ def hw3_3_response(circuit):
     # Put your code here (spaces for indentation)
     # End Code
       
+
+reg = qiskit.QuantumRegister(6)
+circuit = qiskit.QuantumCircuit(reg)
+
+circuit.h(0)
+circuit.cx(0,1)
+circuit.h(2)
+circuit.h(3)
+circuit.h(4)
+circuit.h(5)
+print(hw3_3_response(circuit))
 
 # %% [markdown]
 # # Exercise 4: Entangling Multiple Qubits
@@ -347,6 +379,8 @@ def hw3_4_response(n: int):
     # End Code
 
     return circuit
+
+print(hw3_4_response(2))
 
 # %% [markdown]
 # # Submission
