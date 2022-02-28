@@ -285,7 +285,7 @@ import qiskit
 from qiskit.providers.aer import QasmSimulator
 
 def prime_circuit(circuit, qubit_list, bitstring):
-    for i in range(0,bitstring.len()):
+    for i in range(0,len(bitstring)):
         if bitstring[i] == '1':
             qubit_list[i].x()
     
@@ -381,6 +381,8 @@ def hw3_4_response(n: int):
     return circuit
 
 # print(hw3_4_response(2))
+
+print(1 % 8)
 
 # %% [markdown]
 # # Submission
