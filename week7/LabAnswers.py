@@ -285,6 +285,7 @@ import qiskit
 from qiskit.providers.aer import QasmSimulator
 
 def prime_circuit(circuit, qubit_list, bitstring):
+    # idk why i have to do this
     print(bitstring)
     for i in range(0,len(bitstring)):
         if bitstring[i] == '1':
