@@ -285,9 +285,9 @@ import qiskit
 from qiskit.providers.aer import QasmSimulator
 
 def prime_circuit(circuit, qubit_list, bitstring):
-    for i in range(0,len(bitstring)):
-        if bitstring[i] == '1':
-            qubit_list[i].x()
+    # for i in range(0,len(bitstring)):
+        # if bitstring[i] == '1':
+        #     qubit_list[i].x()
     
 
     return circuit
@@ -331,7 +331,6 @@ def hw3_3_response(circuit):
 
     # Put your code here (spaces for indentation)
     # End Code
-      
 
 # reg = qiskit.QuantumRegister(6)
 # circuit = qiskit.QuantumCircuit(reg)
@@ -343,6 +342,8 @@ def hw3_3_response(circuit):
 # circuit.h(4)
 # circuit.h(5)
 # print(hw3_3_response(circuit))
+
+
 
 # %% [markdown]
 # # Exercise 4: Entangling Multiple Qubits
@@ -381,8 +382,6 @@ def hw3_4_response(n: int):
     return circuit
 
 # print(hw3_4_response(2))
-
-print(1 % 8)
 
 # %% [markdown]
 # # Submission
