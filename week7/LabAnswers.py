@@ -285,13 +285,12 @@ import qiskit
 from qiskit.providers.aer import QasmSimulator
 
 def prime_circuit(circuit, qubit_list, bitstring):
-    # extra commit again again
-    print(qubit_list.len())
-    print(bitstring)
+    print("Priming a circuit")
+    print("Bitstring: " + bitstring)
     for i in range(0,len(bitstring)):
         if bitstring[i] == '1':
-            print("Applying Not to index: " + str(i))
             circuit.x(qubit_list[i])
+            print("Applying NOT to index: " + str(i))
 
     return circuit
 
@@ -378,7 +377,7 @@ def hw3_4_response(n: int):
     circuit.h(0)
 
     for i in range(1, n):
-        circuit.cx(0, i)
+        circuit.cx(i-1, i)
     # End Code
 
     return circuit
