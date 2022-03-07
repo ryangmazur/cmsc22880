@@ -230,6 +230,7 @@ from qiskit.providers.aer import QasmSimulator
 
 def hw3_2_response(circuit):
     # Put your code to find the entangled qubits here
+    print("In hw3_2_response")
     simulator = QasmSimulator()
 
     circuit.measure_all()
@@ -285,25 +286,23 @@ import qiskit
 from qiskit.providers.aer import QasmSimulator
 
 def prime_circuit(circuit, qubit_list, bitstring):
-    # extra commit again again
-    print(qubit_list.len())
-    print(bitstring)
     for i in range(0,len(bitstring)):
         if bitstring[i] == '1':
-            print("Applying Not to index: " + str(i))
-            circuit.x(i)
+            circuit.x(qubit_list[i])
 
     return circuit
 
 def hw3_3_response(circuit):
     # Put your code to find the entangled qubits here
+    print("in hw3_3_response")
     simulator = QasmSimulator()
 
     circuit.measure_all()
 
-    executed_job = qiskit.execute(circuit, simulator, shots=1024)
+    executed_job = qiskit.execute(circuit, simulator, shots=10000)
     r = executed_job.result()
     result_dict = r.get_counts(circuit)
+    print(result_dict)
 
     bitstrings = ["000001", "000010", "000100", "001000", "010000", "100000"]
     qubit_1 = -1
@@ -319,6 +318,7 @@ def hw3_3_response(circuit):
                 qubit_2 = i
 
     if qubit_1 != -1 and qubit_2 != -1:
+        print("returning same entangle")
         return qubit_1, qubit_2
 
     for i in range(0,5):
@@ -326,6 +326,7 @@ def hw3_3_response(circuit):
             bitstring = "000000"
             bitstring[i] == '1'
             bitstring[j] == '1'
+            print(bitstring)
 
             if result_dict.get(bitstring) == None:
                 qubit_1 = j
@@ -378,7 +379,7 @@ def hw3_4_response(n: int):
     circuit.h(0)
 
     for i in range(1, n):
-        circuit.cx(0, i)
+        circuit.cx(i-1, i)
     # End Code
 
     return circuit
