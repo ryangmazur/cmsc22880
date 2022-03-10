@@ -95,7 +95,7 @@ def to_bin(val):
 
 def hw4_2_response(circuit, n, codes):
     # Put your code to find the entangled qubits here
-    matrix = np.zeros(n+1)
+    matrix = np.zeros(n+1, dtype=np.int8)
     shit_right = True
 
     for i in range(0, n+1):
