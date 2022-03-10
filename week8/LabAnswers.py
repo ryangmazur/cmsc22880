@@ -95,19 +95,20 @@ def to_bin(val):
 
 def hw4_2_response(circuit, n, codes):
     # Put your code to find the entangled qubits here
-    matrix = np.zeros(n+1, dtype=np.int8)
+    #UPDATE
+    matrix = np.zeros((n+1, n+1), dtype=np.int8)
     shit_right = True
 
     for i in range(0, n+1):
         if (to_bin(i) in codes):
             if shift_right:
-                matrix[i][i+1] = 1
+                matrix[i, i+1] = 1
                 shift_right = False
             else:
-                matrix[i][i-1] = 1
+                matrix[i, i-1] = 1
                 shift_right = True
         else:
-            matrix[i][i] = 1
+            matrix[i, i] = 1
 
     my_gate = qiskit.UnitaryGate(matrix)
 
